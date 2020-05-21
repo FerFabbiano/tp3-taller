@@ -1,0 +1,106 @@
+#include "common_socket.h"
+
+Socket::Socket() : fd(-1) {}
+
+Socket::~Socket(){
+    /* Si es válido, lo cierro. */
+    if (this->fd != -1){
+      ::close(this->fd);
+    }
+    /* Dejo el file descriptor en un estado inválido. */
+    this->fd = -1;
+}
+
+Socket::Socket(Socket &&other) noexcept: fd(other.fd){
+    /* Debo dejar a other en un estado inválido para que no me haga el close. */
+    other.fd = -1;
+}
+
+Socket::Socket(int fd) : fd(fd) {}
+
+Socket Socket::accept(){
+    int fd = ::accept(this->fd, nullptr, nullptr);
+    if (fd == -1)
+      throw std::exception();
+    return std::move(Socket(fd)); // devuelvo socket por movimiento
+}
+
+void Socket::bind_and_listen(const char *service){
+    int status = 0, val = 1;
+    addrinfo hints, *results, *aux;
+    set_hints(&hints, SERVER);
+    status = getaddrinfo(nullptr, service, &hints, &results);
+    if (status != 0)
+      throw std::exception();
+    for (aux = results; aux != nullptr; aux = aux->ai_next) {
+        this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
+    if (this->fd == -1)
+        continue;
+    status = setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+    if (status == -1){
+        ::close(this->fd);
+        this->fd = -1;
+    }
+    if (bind(this->fd, aux->ai_addr, aux->ai_addrlen) == 0){ // logro bindear
+        break;               
+    }
+    ::close(this->fd);
+    this->fd = -1;
+    }
+    freeaddrinfo(results); /* libero lista de direcciones. */
+    status = listen(this->fd, 10);
+    if (status == -1)
+        throw std::exception();
+}
+
+void Socket::set_hints(addrinfo *hints, int tipo){
+    hints->ai_family = AF_INET;    
+    hints->ai_socktype = SOCK_STREAM; 
+    hints->ai_protocol = 0;
+    switch (tipo){
+        case 0: hints->ai_flags = 0;
+        case 1: hints->ai_flags = AI_PASSIVE;
+    }
+}
+
+void Socket::connect(const char *host_name, const char *service){
+    int status = 0;
+    addrinfo hints, *results, *aux;
+    set_hints(&hints, CLIENT);
+    status = getaddrinfo(host_name, service, &hints, &results);
+    if (status != 0)
+        throw std::exception();
+    for (aux = results; aux != nullptr; aux = aux->ai_next) {
+        this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
+        if (this->fd == -1)
+            continue;
+        if (::connect(this->fd, aux->ai_addr, aux->ai_addrlen) == 0) // logro conectarse
+            break;               
+        ::close(this->fd);
+        this->fd = -1;
+    }
+    freeaddrinfo(results); /* libero lista de direcciones. */
+}
+
+int Socket::send(const char *buffer, size_t buf_length) const{
+    size_t size_send = 0, aux;
+    while (size_send < buf_length){
+        aux = ::send(this->fd, &buffer[size_send], buf_length - size_send, 0);
+        if (aux <= 0)
+            throw std::exception();
+        size_send += aux;
+    }
+    return size_send;
+}
+    
+int Socket::receive(char *buffer, size_t buf_length) const{
+    size_t size_recv = 0, aux = 0;
+    while (size_recv < buf_length){
+        aux = ::recv(this->fd, &buffer[size_recv], buf_length - size_recv, 0);
+        if (aux <= 0)
+            throw std::exception();
+        size_recv += aux;
+    }
+    return size_recv;
+}
+
