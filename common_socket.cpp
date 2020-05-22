@@ -34,18 +34,18 @@ void Socket::bind_and_listen(const char *service){
       throw std::exception();
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
-    if (this->fd == -1)
-        continue;
-    status = setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-    if (status == -1){
+        if (this->fd == -1)
+            continue;
+        status = setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+        if (status == -1){
+            ::close(this->fd);
+            this->fd = -1;
+        }
+        if (bind(this->fd, aux->ai_addr, aux->ai_addrlen) == 0){ // logro bindear
+            break;               
+        }
         ::close(this->fd);
         this->fd = -1;
-    }
-    if (bind(this->fd, aux->ai_addr, aux->ai_addrlen) == 0){ // logro bindear
-        break;               
-    }
-    ::close(this->fd);
-    this->fd = -1;
     }
     freeaddrinfo(results); /* libero lista de direcciones. */
     status = listen(this->fd, 10);

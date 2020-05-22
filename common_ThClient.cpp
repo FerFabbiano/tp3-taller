@@ -1,32 +1,41 @@
 #include "common_ThClient.h"
 #include <string>
+#include "common_OSError.h"
 
-ThClient::ThClient(){}
+ThClient::ThClient(Socket &client) : number_send(0), client(client){}
 
 ThClient::~ThClient(){}
 
 void ThClient::read_stdin(){
     std::string message;
-    std::string quit = "q";
     getline (std::cin, message);
-    while (message.compare(quit) != 0){
-        encode_command(message);
-        getline (std::cin, message);
-    }
+    encode_command(message);
 }
 
 void ThClient::encode_command(std::string message){
-    std::string send;
     std::string ayuda = "AYUDA";
     std::string rendirse = "RENDIRSE";
-    short int number_send = 0;
+    std::string error = "Error: comando inválido. Escriba AYUDA para obtener ayuda";
+    int number = 0;
     if (message.compare(ayuda) == 0){
-        send = "h";
+        this->command_send = 'h';
+        client.send(&command_send, 1);
     }else if (message.compare(rendirse) == 0){
-        send = "s";
-    }else{
-        send = "n";
-        std::stringstream(message) >> number_send;
+        this->command_send = 's';
+        client.send(&command_send, 1);
+    }else {
+        try {
+            number = std::stoi(message, 0, 10);
+        } catch (std::exception &e){
+            throw OSError(error);
+        }
+        if (number > NUM_MAX){
+            this->number_send = 0;
+            throw OSError(error);
+        }else{
+            this->command_send = 'n';
+            client.send(&command_send, 1);
+            this->number_send = number;
+        }
     }
-    std::cout << send << number_send << std::endl;
 }
