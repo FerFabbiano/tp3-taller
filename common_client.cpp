@@ -39,12 +39,11 @@ void Client::encode_command(std::string message){
         }
     }
     send_command();
+    command_send = ' ';
+    number_send = 0;
 }
 
 void Client::send_command(){
-    std::cout << sizeof(command_send) << std::endl;
-    std::cout << command_send << std::endl;
-    std::cout << number_send << std::endl;
     s.send(&command_send, 1);
     if (command_send == 'n'){
         s.send((char*) &number_send, 2);

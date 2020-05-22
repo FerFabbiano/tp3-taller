@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <sstream>
 #include "common_socket.h"
 
 #define NUM_MAX 65536

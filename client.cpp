@@ -2,8 +2,6 @@
 #include <string>
 #include <sstream>
 
-#define ERROR 1;
-
 #include "common_client.h"
 #include "common_socket.h"
 #include "common_OSError.h"
@@ -19,7 +17,7 @@ int main(int argc, char const *argv[]){
     }
     catch(std::exception &e){
         std::cout << e.what() << '\n';
-        return ERROR;
+        return 0;
     }
 
     Socket s;
