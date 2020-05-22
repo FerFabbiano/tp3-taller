@@ -1,7 +1,14 @@
 #include <iostream>
 #include "common_socket.h"
+#include "common_ThClient.h"
 
 int main(int argc, char const *argv[]){
+    ThClient client1;
+    client1.set_answer("h");
+    client1.set_answer("s"); 
+    client1.set_answer("n");
+    
+    /*
     char recv_num[2];
     char recv_command[1];
     memset (recv_command, 0, 1);
@@ -18,6 +25,6 @@ int main(int argc, char const *argv[]){
             std::cout << numero << std::endl;
         }
     }
-    
+    */
     return 0;
 }

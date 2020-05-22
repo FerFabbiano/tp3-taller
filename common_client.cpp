@@ -44,6 +44,7 @@ void Client::encode_command(std::string message){
 }
 
 void Client::send_command(){
+    std::cout << "Enviando comando" << std::endl;
     s.send(&command_send, 1);
     if (command_send == 'n'){
         s.send((char*) &number_send, 2);
