@@ -4,11 +4,11 @@
 
 #define ERROR 1;
 
-#include "common_ThClient.h"
+#include "common_client.h"
 #include "common_socket.h"
 #include "common_OSError.h"
 
-int main (int argc, char const *argv[]){   
+int main(int argc, char const *argv[]){   
     std::string arg_invalido = "Error: argumentos invalidos.";
     bool keep_reading = true;
     
@@ -17,20 +17,20 @@ int main (int argc, char const *argv[]){
             throw OSError(arg_invalido);
         }
     }
-    catch (std::exception &e){
+    catch(std::exception &e){
         std::cout << e.what() << '\n';
         return ERROR;
     }
 
-    Socket client;
-    client.connect(argv[1], argv[2]);
+    Socket s;
+    s.connect(argv[1], argv[2]);
 
-    ThClient client1(client);
+    Client client1(s);
     while (keep_reading){
         try{
             client1.read_stdin();
         }
-        catch (std::exception &e){
+        catch(std::exception &e){
             std::cout << e.what() << '\n';
         }
     }

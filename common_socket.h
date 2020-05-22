@@ -16,6 +16,7 @@ class Socket{
 private: 
     int fd;
     explicit Socket(int fd); // solo podrá ser llamado por socket
+
 public: 
     Socket();
     ~Socket();

@@ -5,9 +5,9 @@
 
 #define NUM_MAX 65536
 
-class ThClient{
+class Client{
 private: 
-    Socket &client;
+    Socket &s;
     
     char command_send;
     char command_recv;
@@ -18,9 +18,9 @@ private:
     std::string help;
     std::string surrender;
 public: 
-    ThClient(Socket &client);
+    explicit Client(Socket &s);
     void read_stdin();
     void encode_command(std::string message);
     void send_command();
-    ~ThClient();
+    ~Client();
 };
