@@ -10,7 +10,7 @@
 
 int main (int argc, char const *argv[]){   
     std::string arg_invalido = "Error: argumentos invalidos.";
-    //bool keep_reading = true;
+    bool keep_reading = true;
     
     try{
         if (argc != 3){
@@ -21,21 +21,20 @@ int main (int argc, char const *argv[]){
         std::cout << e.what() << '\n';
         return ERROR;
     }
-    
+
     Socket client;
     client.connect(argv[1], argv[2]);
+
     ThClient client1(client);
-    int i = 0;
-    while (i < 3){
+    while (keep_reading){
         try{
             client1.read_stdin();
         }
         catch (std::exception &e){
             std::cout << e.what() << '\n';
-            i--;
         }
-        i++;
     }
+  
 
     /*
     char buffer_send[5] = "OK!\n";

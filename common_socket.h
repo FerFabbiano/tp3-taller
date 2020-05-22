@@ -7,6 +7,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <exception>      // std::exception
+#include "common_SocketError.h"
 
 #define SERVER 1
 #define CLIENT 0

@@ -21,7 +21,7 @@ Socket::Socket(int fd) : fd(fd) {}
 Socket Socket::accept(){
     int fd = ::accept(this->fd, nullptr, nullptr);
     if (fd == -1)
-      throw std::exception();
+      throw SocketError("Error en la función accept de Socket.");
     return std::move(Socket(fd)); // devuelvo socket por movimiento
 }
 
@@ -35,7 +35,7 @@ void Socket::bind_and_listen(const char *service){
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
         if (this->fd == -1)
-            continue;
+            throw SocketError("Error al crear socket en el bind and listen.");
         status = setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
         if (status == -1){
             ::close(this->fd);
@@ -50,7 +50,7 @@ void Socket::bind_and_listen(const char *service){
     freeaddrinfo(results); /* libero lista de direcciones. */
     status = listen(this->fd, 10);
     if (status == -1)
-        throw std::exception();
+        throw SocketError("Error en la función de socket listen.");
 }
 
 void Socket::set_hints(addrinfo *hints, int tipo){
@@ -69,11 +69,11 @@ void Socket::connect(const char *host_name, const char *service){
     set_hints(&hints, CLIENT);
     status = getaddrinfo(host_name, service, &hints, &results);
     if (status != 0)
-        throw std::exception();
+        throw SocketError("Error en el connect del socket.");
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
         if (this->fd == -1)
-            continue;
+            throw std::exception();
         if (::connect(this->fd, aux->ai_addr, aux->ai_addrlen) == 0) // logro conectarse
             break;               
         ::close(this->fd);
@@ -87,7 +87,7 @@ int Socket::send(const char *buffer, size_t buf_length) const{
     while (size_send < buf_length){
         aux = ::send(this->fd, &buffer[size_send], buf_length - size_send, 0);
         if (aux <= 0)
-            throw std::exception();
+            throw SocketError("Error al enviar mensaje por el socket.");
         size_send += aux;
     }
     return size_send;
@@ -98,7 +98,7 @@ int Socket::receive(char *buffer, size_t buf_length) const{
     while (size_recv < buf_length){
         aux = ::recv(this->fd, &buffer[size_recv], buf_length - size_recv, 0);
         if (aux <= 0)
-            throw std::exception();
+            throw SocketError("Error al recibir mensaje por el socket.");
         size_recv += aux;
     }
     return size_recv;
