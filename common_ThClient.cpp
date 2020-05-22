@@ -44,5 +44,8 @@ void ThClient::send_command(){
     std::cout << sizeof(command_send) << std::endl;
     std::cout << command_send << std::endl;
     std::cout << number_send << std::endl;
-    client.send((char*) &number_send, 2);
+    client.send(&command_send, 1);
+    if (command_send == 'n'){
+        client.send((char*) &number_send, 2);
+    }
 }
