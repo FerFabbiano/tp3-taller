@@ -13,15 +13,15 @@ void ThClient::set_answer(const char* command, uint16_t number){
     std::string comando = command;
     if (comando.compare("s") == 0){
         std::cout << perdiste << std::endl;
-        std::cout << sizeof(perdiste) << std::endl;
+        std::cout << perdiste.size() << std::endl;
     }else if (comando.compare("h") == 0) {
         std::cout << help << std::endl;
-        std::cout << sizeof(help) << std::endl;
+        std::cout << help.size() << std::endl;
     }else {
         intentos += 1;
         std::string answer = compare_number(number); 
         std::cout << answer  << std::endl;
-        std::cout << sizeof(answer);
+        std::cout << answer.size() << std::endl;
     }
 }
 
