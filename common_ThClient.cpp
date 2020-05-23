@@ -1,5 +1,7 @@
 #include "common_ThClient.h"
 
+#define INVALID -1
+
 ThClient::ThClient(std::string num_to_guess) : num_to_guess(num_to_guess){
     this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
@@ -13,30 +15,29 @@ void ThClient::set_answer(const char* command, uint16_t number){
     std::string comando = command;
     if (comando.compare("s") == 0){
         std::cout << perdiste << std::endl;
-        std::cout << perdiste.size() << std::endl;
+        //std::cout << perdiste.size() << std::endl;
     }else if (comando.compare("h") == 0) {
         std::cout << help << std::endl;
-        std::cout << help.size() << std::endl;
-    }else {
-        intentos += 10;
+        //std::cout << help.size() << std::endl;
+    }else if(comando.compare("n") == 0){
+        //std::cout << "Entre " << std::endl;
+        intentos += 1;
         std::string answer = compare_number(number); 
         if ((intentos >= 10) && (answer.compare(ganaste) != 0))
             answer = perdiste;
         std::cout << answer  << std::endl;
-        std::cout << answer.size() << std::endl;
+        //std::cout << answer.size() << std::endl;
     }
 }
 
 std::string ThClient::compare_number(uint16_t number){
-    std::string answer;
-    std::string num = std::to_string(number);
+    std::string answer, num = std::to_string(number);
     int bien = 0, regular = 0;
-    if ((number < 100) ||  (number > 999)){
+    if (((number < 100) ||  (number > 999)) && (number != INVALID)){
         answer = "Número inválido. Debe ser de 3 cifras no repetidas";
         return answer;
     }
-    if ((num[0] == num [1]) || (num[0] == num[2]) || 
-        (num[1] == num[2])){
+    if ((num[0] == num [1]) || (num[0] == num[2]) || (num[1] == num[2])){
         answer = "Número inválido. Debe ser de 3 cifras no repetidas";
         return answer;          
     }

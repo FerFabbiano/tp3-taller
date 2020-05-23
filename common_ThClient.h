@@ -9,7 +9,6 @@ class ThClient{
 public: 
     ThClient(std::string num);
     ~ThClient();
-    
     /* Recibe el comando enviado a través del socket y un entero sin signo 
     de 2 bytes. Este entero será cero en caso de que el comando enviado
     no sea un número */
