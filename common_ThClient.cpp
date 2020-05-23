@@ -2,7 +2,8 @@
 
 #define INVALID -1
 
-ThClient::ThClient(std::string num_to_guess) : num_to_guess(num_to_guess){
+ThClient::ThClient(std::string num_to_guess, Socket &s) : 
+    num_to_guess(num_to_guess), s(s){
     this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
@@ -11,24 +12,20 @@ ThClient::ThClient(std::string num_to_guess) : num_to_guess(num_to_guess){
 
 ThClient::~ThClient(){}
 
-void ThClient::set_answer(const char* command, uint16_t number){
+std::string ThClient::set_answer(const char* command, uint16_t number){
     std::string comando = command;
     if (comando.compare("s") == 0){
-        std::cout << perdiste << std::endl;
-        //std::cout << perdiste.size() << std::endl;
+        return perdiste;
     }else if (comando.compare("h") == 0) {
-        std::cout << help << std::endl;
-        //std::cout << help.size() << std::endl;
-    }else if(comando.compare("n") == 0){
-        //std::cout << "Entre " << std::endl;
-        intentos += 1;
-        std::string answer = compare_number(number); 
-        if ((intentos >= 10) && (answer.compare(ganaste) != 0))
-            answer = perdiste;
-        std::cout << answer  << std::endl;
-        //std::cout << answer.size() << std::endl;
+        return help;
     }
+    intentos += 1;
+    std::string answer = compare_number(number); 
+    if ((intentos >= 10) && (answer.compare(ganaste) != 0))
+        return perdiste;
+    return answer;
 }
+
 
 std::string ThClient::compare_number(uint16_t number){
     std::string answer, num = std::to_string(number);
@@ -66,4 +63,22 @@ std::string ThClient::compare_number(uint16_t number){
     return answer;
 }
 
+void ThClient::send_answer(std::string answer){
+    unsigned int size_mssg_send = 0;
+    size_mssg_send = answer.size();
+    s.send((char*) &size_mssg_send, sizeof(int));
+    s.send(answer.data(), size_mssg_send);
+}
 
+std::string ThClient::process_command(){
+    char recv_num[2], recv_command[2];
+    uint16_t numero = INVALID;
+    s.receive(recv_command, 1);
+        if (*recv_command == 'n'){
+            s.receive(recv_num, 2);
+            numero = *(uint16_t*) recv_num;
+        }
+    std::string rta = set_answer(recv_command, numero);
+    numero = INVALID;
+    return rta;
+}

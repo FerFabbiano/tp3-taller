@@ -25,23 +25,15 @@ int main(int argc, char const *argv[]){
 
     Client client1(s);
     while (keep_reading){
+        std::string command = client1.read_stdin();
         try{
-            client1.read_stdin();
+            client1.send_command(command);
+            client1.rcv_answer();
         }
         catch(std::exception &e){
             std::cout << e.what() << '\n';
         }
     }
   
-
-    /*
-    char buffer_send[5] = "OK!\n";
-    char buffer_recv[5];
-    Socket socket;
-    socket.connect(argv[1], argv[2]);
-    socket.send(buffer_send, sizeof(buffer_send));
-    socket.receive(buffer_recv, sizeof(buffer_recv));
-    std::cout << buffer_recv << std::endl;
-    */
     return 0;
 }

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 Client::Client(Socket &s) : s(s){
     this->invalid_command = "Error: comando inválido. Escriba AYUDA para obtener ayuda";
@@ -13,21 +14,21 @@ Client::Client(Socket &s) : s(s){
 
 Client::~Client(){}
 
-void Client::read_stdin(){
-    std::string message;
-    getline(std::cin, message);
-    encode_command(message);
+std::string Client::read_stdin(){
+    std::string command;
+    std::getline(std::cin, command);
+    return command;
 }
 
-void Client::encode_command(std::string message){
+void Client::encode_command(std::string command){
     int number = 0;
-    if (message.compare(help) == 0){
+    if (command.compare(help) == 0){
         this->command_send = 'h';
-    }else if (message.compare(surrender) == 0){
+    }else if (command.compare(surrender) == 0){
         this->command_send = 's';
     }else {
         try {
-            number = std::stoi(message, 0, 10);
+            number = std::stoi(command, 0, 10);
         }catch(std::exception &e){
             throw OSError(invalid_command);
         }
@@ -38,14 +39,24 @@ void Client::encode_command(std::string message){
             this->number_send = number;
         }
     }
-    send_command();
-    command_send = ' ';
-    number_send = 0;
 }
 
-void Client::send_command(){
+void Client::send_command(std::string command){
+    encode_command(command);
     s.send(&command_send, 1);
     if (command_send == 'n'){
         s.send((char*) &number_send, 2);
     }
+    command_send = ' ';
+    number_send = 0;
+}
+
+void Client::rcv_answer(){
+    char string_length[4];
+    s.receive(string_length, sizeof(string_length));
+    unsigned const int length = *(unsigned int*) string_length;
+    std::vector <char> answer(length+1, 0);
+    char *buf = answer.data();
+    s.receive(buf, length);
+    std::cout << buf << std::endl;
 }

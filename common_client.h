@@ -9,7 +9,6 @@ private:
     Socket &s;
     
     char command_send;
-    char command_recv;
     uint16_t number_send;
     bool continue_playing;
     
@@ -17,9 +16,21 @@ private:
     std::string help;
     std::string surrender;
 public: 
+    /* Constructor */
     explicit Client(Socket &s);
-    void read_stdin();
-    void encode_command(std::string message);
-    void send_command();
+    /* Leo el comando ingresado por el cliente el la entrada estándar. 
+    Devuelvo el comando en un string. */
+    std::string read_stdin();
+    /* Seteo, en base al comando que ingreso el cliente, el mensaje para
+    enviarle al servidor (seteo con los valores correspondientes los atributos
+    command_send y number_send) */
+    void encode_command(std::string command);
+    /* Envío el comando ingresado por el cliente, formateado, a través del 
+    socket. En caso de haber ingresado un número, envío el comando y 
+    luego envío dicho número. */
+    void send_command(std::string command);
+    /* Recibo la respuesta proveniente del servidor en base al comando y/o número
+    enviado. */
+    void rcv_answer();
     ~Client();
 };
