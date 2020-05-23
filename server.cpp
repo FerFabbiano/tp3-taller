@@ -4,8 +4,6 @@
 #include "common_fileManager.h"
 #include "common_OSError.h"
 
-#define INVALID -1
-
 int main(int argc, char const *argv[]){
     try{
         if (argc != 3)
@@ -34,6 +32,8 @@ int main(int argc, char const *argv[]){
     while (keep_reading){
         std::string answer = client1.process_command();
         client1.send_answer(answer);
+        if ((answer.compare("Ganaste") == 0) || (answer.compare("Perdiste") == 0))
+            keep_reading = false;
     }
 
     return 0;

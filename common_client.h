@@ -31,6 +31,7 @@ public:
     void send_command(std::string command);
     /* Recibo la respuesta proveniente del servidor en base al comando y/o número
     enviado. */
-    void rcv_answer();
+    std::string rcv_answer();
+    bool check_answer(std::string answer);
     ~Client();
 };

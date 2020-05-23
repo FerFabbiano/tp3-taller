@@ -26,13 +26,15 @@ int main(int argc, char const *argv[]){
     Client client1(s);
     while (keep_reading){
         std::string command = client1.read_stdin();
+        std::string answer;
         try{
             client1.send_command(command);
-            client1.rcv_answer();
+            answer = client1.rcv_answer();
         }
         catch(std::exception &e){
             std::cout << e.what() << '\n';
         }
+        keep_reading = client1.check_answer(answer);
     }
   
     return 0;

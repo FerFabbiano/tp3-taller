@@ -51,7 +51,7 @@ void Client::send_command(std::string command){
     number_send = 0;
 }
 
-void Client::rcv_answer(){
+std::string Client::rcv_answer(){
     char string_length[4];
     s.receive(string_length, sizeof(string_length));
     unsigned const int length = *(unsigned int*) string_length;
@@ -59,4 +59,12 @@ void Client::rcv_answer(){
     char *buf = answer.data();
     s.receive(buf, length);
     std::cout << buf << std::endl;
+    return buf;
 }
+
+bool Client::check_answer(std::string answer){
+    if ((answer.compare("Ganaste") == 0) || (answer.compare("Perdiste") == 0))
+        return false;
+    return true;
+}
+
