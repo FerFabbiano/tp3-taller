@@ -1,12 +1,31 @@
 #include <iostream>
 #include "common_socket.h"
 #include "common_ThClient.h"
+#include "common_fileManager.h"
+#include "common_OSError.h"
 
 int main(int argc, char const *argv[]){
-    ThClient client1;
-    client1.set_answer("h");
-    client1.set_answer("s"); 
-    client1.set_answer("n");
+    try{
+        if (argc != 3)
+            throw OSError("Error: argumentos invalidos.");
+    }catch(OSError &e){
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
+    FileManager file(argv[2]);
+    std::string num_to_guess = file.get_number();
+    try{
+        file.valid_number(num_to_guess);
+    }
+    catch(OSError &e){
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
+    ThClient client1(num_to_guess);
+    uint16_t numero = 748;
+    //client1.set_answer("h", numero);
+    //client1.set_answer("s", numero); 
+    client1.set_answer("n", numero);
     
     /*
     char recv_num[2];
