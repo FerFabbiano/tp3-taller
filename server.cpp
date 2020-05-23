@@ -22,9 +22,9 @@ int main(int argc, char const *argv[]){
         return 1;
     }
     ThClient client1(num_to_guess);
-    uint16_t numero = 748;
-    //client1.set_answer("h", numero);
-    //client1.set_answer("s", numero); 
+    uint16_t numero = 749;
+    client1.set_answer("h", numero);
+    client1.set_answer("s", numero); 
     client1.set_answer("n", numero);
     
     /*

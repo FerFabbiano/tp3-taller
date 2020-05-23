@@ -18,8 +18,10 @@ void ThClient::set_answer(const char* command, uint16_t number){
         std::cout << help << std::endl;
         std::cout << help.size() << std::endl;
     }else {
-        intentos += 1;
+        intentos += 10;
         std::string answer = compare_number(number); 
+        if ((intentos >= 10) && (answer.compare(ganaste) != 0))
+            answer = perdiste;
         std::cout << answer  << std::endl;
         std::cout << answer.size() << std::endl;
     }
