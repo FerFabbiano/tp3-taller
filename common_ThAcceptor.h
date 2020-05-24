@@ -5,12 +5,15 @@
 #include <vector>
 #include "common_socket.h"
 #include "common_fileManager.h"
+#include <string>
+#include "common_ThClient.h"
 
 class ThAcceptor : public Thread{
 public:
     ThAcceptor(Socket &s, FileManager &file);
     ~ThAcceptor();
     void run();  
+    ThClient accept_client(std::string num_to_guess);
 
 private:
     std::vector<Thread*> threads;

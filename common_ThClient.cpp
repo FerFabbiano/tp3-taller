@@ -2,14 +2,24 @@
 
 #define INVALID -1
 
-ThClient::ThClient(std::string num_to_guess, Socket &s) : 
-    num_to_guess(num_to_guess), s(s){
+ThClient::ThClient(std::string num_to_guess, Socket socket) : 
+    num_to_guess(num_to_guess), s(std::move(socket)){
     this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
     this->intentos = 0;
     this->is_running = true;
 }
+
+ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)){
+    this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
+    this->ganaste = "Ganaste";
+    this->perdiste = "Perdiste";
+    this->intentos = 0;
+    this->is_running = true;
+    this->num_to_guess = other.num_to_guess;
+}
+
 
 ThClient::~ThClient(){}
 
