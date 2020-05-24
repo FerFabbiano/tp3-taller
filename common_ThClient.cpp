@@ -3,8 +3,9 @@
 
 #define INVALID -1
 
-ThClient::ThClient(std::string num_to_guess, Socket socket) : 
-    num_to_guess(num_to_guess), s(std::move(socket)){
+ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter &winners, 
+    LoosersCounter &loosers) : num_to_guess(num_to_guess), s(std::move(socket)), 
+    winners(winners), loosers(loosers){
     this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
@@ -12,7 +13,8 @@ ThClient::ThClient(std::string num_to_guess, Socket socket) :
     this->is_running = true;
 }
 
-ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)){
+ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)), 
+    winners(other.winners), loosers(other.loosers){
     this->help = "Comandos válidos:​ \n\t​ AYUDA: despliega la lista de comandos válidos​ \n\t​ RENDIRSE: pierde el juego automáticamente​ \n\t​ XXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
@@ -33,8 +35,10 @@ std::string ThClient::set_answer(const char* command, uint16_t number){
     }
     intentos += 1;
     std::string answer = compare_number(number); 
-    if ((intentos >= 10) && (answer.compare(ganaste) != 0))
+    if ((intentos >= 10) && (answer.compare(ganaste) != 0)){
+        loosers.inc();
         return perdiste;
+    }
     return answer;
 }
 
@@ -51,6 +55,7 @@ std::string ThClient::compare_number(uint16_t number){
         return answer;          
     }
     if (num.compare(num_to_guess) == 0){
+        winners.inc();
         return ganaste;
     }
     for (int i = 0; i < 3; i++){

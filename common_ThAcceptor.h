@@ -7,18 +7,24 @@
 #include "common_fileManager.h"
 #include <string>
 #include "common_ThClient.h"
+#include "common_loosersCounter.h"
+#include "common_winnersCounter.h"
 
 class ThAcceptor : public Thread{
 public:
-    ThAcceptor(Socket &s, FileManager &file);
+    ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
+        LoosersCounter &loosers);
     ~ThAcceptor();
     void run();  
-    ThClient accept_client(std::string num_to_guess);
+    ThClient accept_client(std::string num_to_guess, WinnersCounter &winners, 
+        LoosersCounter &loosers);
 
 private:
     std::vector<Thread*> threads;
     Socket &s;
     FileManager &file;
+    WinnersCounter &winners;
+    LoosersCounter &loosers;
 };
 
 #endif

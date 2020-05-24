@@ -1,10 +1,13 @@
 #include <iostream>
+#include <vector>
+
 #include "common_socket.h"
 #include "common_ThClient.h"
 #include "common_fileManager.h"
 #include "common_OSError.h"
 #include "common_ThAcceptor.h"
-#include <vector>
+#include "common_winnersCounter.h"
+#include "common_loosersCounter.h"
 
 int main(int argc, char const *argv[]){
     try{
@@ -15,10 +18,14 @@ int main(int argc, char const *argv[]){
         return 1;
     }
     FileManager file(argv[2]);
+
+    WinnersCounter winners;
+    LoosersCounter loosers;
+
     Socket s;
     s.bind_and_listen(argv[1]);
 
-    ThAcceptor acceptor(s, file);
+    ThAcceptor acceptor(s, file, winners, loosers);
     acceptor.start();
     acceptor.join();
 
@@ -32,6 +39,9 @@ int main(int argc, char const *argv[]){
         return 1;
     }
 */
+
+    winners.print_winners();
+    loosers.print_loosers();
 
     return 0;
 }

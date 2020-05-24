@@ -7,11 +7,14 @@
 #include "common_socket.h"
 #include "common_thread.h"
 #include <atomic>
+#include "common_winnersCounter.h"
+#include "common_loosersCounter.h"
 
 class ThClient : public Thread{
 public: 
     /* Constructor */
-    ThClient(std::string num_to_guess, Socket socket);
+    ThClient(std::string num_to_guess, Socket socket, WinnersCounter &winners, 
+        LoosersCounter &loosers);
     /* Destructor */
     ~ThClient();
     /* Recibe el comando enviado a través del socket y un entero sin signo 
@@ -44,6 +47,8 @@ private:
     std::string num_to_guess;
     Socket s;
     std::atomic<bool> is_running;
+    WinnersCounter &winners;
+    LoosersCounter &loosers;
 };
 
 

@@ -16,10 +16,14 @@ FileManager::~FileManager(){
 
 std::string FileManager::get_number(){
     std::string number;
+    std::string aux;
     getline(fs, number);
     if (fs.eof()){
-        fs.seekg(0);
+        fs.clear();
+        fs.seekg(0, fs.beg);
+        getline(fs, number);
     }
+    std::cout << number << std::endl;
     return number;
 }
 
