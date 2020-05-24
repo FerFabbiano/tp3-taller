@@ -51,7 +51,6 @@ std::string ThClient::compare_number(uint16_t number){
     }
     if (num.compare(num_to_guess) == 0){
         return ganaste;
-        //sumar 1 al contador de ganadores
     }
     for (int i = 0; i < 3; i++){
         if (num[i] == num_to_guess[i])
