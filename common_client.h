@@ -7,14 +7,13 @@
 class Client{
 private: 
     Socket &s;
-    
     char command_send;
     uint16_t number_send;
-    bool continue_playing;
-    
+    bool continue_playing;    
     std::string invalid_command;
     std::string help;
     std::string surrender;
+
 public: 
     /* Constructor */
     explicit Client(Socket &s);

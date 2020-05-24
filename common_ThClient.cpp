@@ -1,4 +1,5 @@
 #include "common_ThClient.h"
+#include <string>
 
 #define INVALID -1
 
@@ -98,7 +99,8 @@ void ThClient::run(){
     while (keep_reading){
         std::string answer = process_command();
         send_answer(answer);
-        if ((answer.compare("Ganaste") == 0) || (answer.compare("Perdiste") == 0)){
+        if ((answer.compare("Ganaste") == 0) || 
+        (answer.compare("Perdiste") == 0)){
             keep_reading = false;
             is_running = false;
         }

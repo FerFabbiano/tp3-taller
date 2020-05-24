@@ -1,5 +1,6 @@
 #include "common_fileManager.h"
 #include "common_OSError.h"
+#include <string>
 
 FileManager::FileManager(const char* filename) : filename(filename){
     fs.open(this->filename);
@@ -26,6 +27,7 @@ void FileManager::valid_number(std::string number){
     if (std::stoi(number) > 1000){
         throw OSError("Error: archivo con números fuera de rango");
     }else if ((number[0] == number [1]) || (number[0] == number[2]) || 
-        (number[1] == number[2]))
+        (number[1] == number[2])){
         throw OSError("Error: formato de los números inválidos");
+    }
 }

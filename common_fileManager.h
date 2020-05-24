@@ -7,7 +7,7 @@
 
 class FileManager{
 public:
-    FileManager(const char* filename);
+    explicit FileManager(const char* filename);
     ~FileManager();
     /* Obtengo un número del archivo de entrada para utilizarlo en el juego. */
     std::string get_number();
@@ -18,7 +18,6 @@ public:
 private:
     std::string filename;
     std::ifstream fs;
-
 };
 
 #endif

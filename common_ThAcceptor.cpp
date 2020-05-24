@@ -1,6 +1,7 @@
 #include "common_ThAcceptor.h"
 #include "common_ThClient.h"
 #include <utility>
+#include <string>
 
 ThAcceptor::ThAcceptor(Socket &s, FileManager &file) : s(s), file(file){}
 
