@@ -16,14 +16,12 @@ FileManager::~FileManager(){
 
 std::string FileManager::get_number(){
     std::string number;
-    std::string aux;
     getline(fs, number);
     if (fs.eof()){
         fs.clear();
         fs.seekg(0, fs.beg);
         getline(fs, number);
     }
-    std::cout << number << std::endl;
     return number;
 }
 
@@ -34,4 +32,15 @@ void FileManager::valid_number(std::string number){
         (number[1] == number[2])){
         throw OSError("Error: formato de los números inválidos");
     }
+}
+
+void FileManager::valid_file(){
+    std::string number;
+    getline(fs, number);
+    while(!fs.eof()){
+        valid_number(number);
+        getline(fs, number);
+    }
+    fs.clear();
+    fs.seekg(0, fs.beg);
 }

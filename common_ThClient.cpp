@@ -29,6 +29,7 @@ ThClient::~ThClient(){}
 std::string ThClient::set_answer(const char* command, uint16_t number){
     std::string comando = command;
     if (comando.compare("s") == 0){
+        loosers.inc();
         return perdiste;
     }else if (comando.compare("h") == 0) {
         return help;
@@ -113,5 +114,8 @@ void ThClient::run(){
 }
 
 bool ThClient::is_dead(){
-    return is_running;
+    if (is_running){
+        return false;
+    }
+    return true;
 }

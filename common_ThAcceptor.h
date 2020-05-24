@@ -18,13 +18,15 @@ public:
     void run();  
     ThClient accept_client(std::string num_to_guess, WinnersCounter &winners, 
         LoosersCounter &loosers);
+    void stop_accepting();
 
 private:
-    std::vector<Thread*> threads;
+    std::vector<ThClient*> threads;
     Socket &s;
     FileManager &file;
     WinnersCounter &winners;
     LoosersCounter &loosers;
+    std::atomic<bool> keep_accepting;
 };
 
 #endif

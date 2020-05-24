@@ -104,3 +104,12 @@ int Socket::receive(char *buffer, size_t buf_length) const{
     return size_recv;
 }
 
+void Socket::close(){
+    /* Si es válido, lo cierro. */
+    if (this->fd != -1){
+      ::close(this->fd);
+      ::shutdown(this->fd, SHUT_RDWR);
+    }
+    /* Dejo el file descriptor en un estado inválido. */
+    this->fd = -1;
+}

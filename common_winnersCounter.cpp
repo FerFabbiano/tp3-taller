@@ -8,7 +8,7 @@ void WinnersCounter::inc() {
 }
 
 void WinnersCounter::print_winners() const{
-    std::cout << "  Ganadores: " << counter << '\n';
+    std::cout << "      Ganadores:  " << counter << '\n';
 }
 
 WinnersCounter::~WinnersCounter(){}

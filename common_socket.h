@@ -33,6 +33,8 @@ public:
     int receive(char *buffer, size_t buf_length) const;
     
     void set_hints(addrinfo *hints, int tipo);
+
+    void close();
     
     Socket(const Socket& copy) = delete;
     Socket& operator=(const Socket &copy) = delete;

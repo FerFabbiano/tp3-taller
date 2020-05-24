@@ -15,6 +15,7 @@ public:
     en el juego. Caso negativo, lanzo una excepción que deberá terminar
     el juego, y devolver 1. */
     void valid_number(std::string number);
+    void valid_file();
 private:
     std::string filename;
     std::ifstream fs;

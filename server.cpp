@@ -17,29 +17,35 @@ int main(int argc, char const *argv[]){
         std::cerr << e.what() << std::endl;
         return 1;
     }
-    FileManager file(argv[2]);
 
+    FileManager file(argv[2]);
+    try{
+        file.valid_file();
+    }catch(OSError &e){
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
     WinnersCounter winners;
     LoosersCounter loosers;
+    std::string quit;
+    bool wait = true;
 
     Socket s;
     s.bind_and_listen(argv[1]);
 
     ThAcceptor acceptor(s, file, winners, loosers);
     acceptor.start();
+    while(wait){
+        std::getline(std::cin, quit);
+        if (quit.compare("q") == 0){
+            wait = false;
+            s.close(); 
+            acceptor.stop_accepting();
+        }
+    }
     acceptor.join();
 
-    /*
-    std::string num_to_guess = file.get_number();
-    try{
-        file.valid_number(num_to_guess);
-    }
-    catch(OSError &e){
-        std::cerr << e.what() << std::endl;
-        return 1;
-    }
-*/
-
+    std::cout << "Estadísticas:\n";
     winners.print_winners();
     loosers.print_loosers();
 
