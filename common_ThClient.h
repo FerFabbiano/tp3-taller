@@ -5,8 +5,10 @@
 #include <iostream>
 #include "common_socket.h"
 #include "common_socket.h"
+#include "common_thread.h"
+#include <atomic>
 
-class ThClient{
+class ThClient : public Thread{
 public: 
     /* Constructor */
     ThClient(std::string num_to_guess, Socket &s);
@@ -28,6 +30,8 @@ public:
     los proceso para determinar que respuesta debe devolverle. Devuelvo
     la respuesta que debo enviarle al cliente. */
     std::string process_command();
+    void run();
+    bool is_dead();
 private:
     unsigned int intentos;
     std::string help;
@@ -35,6 +39,7 @@ private:
     std::string ganaste;
     std::string num_to_guess;
     Socket &s;
+    std::atomic<bool> is_running;
 };
 
 

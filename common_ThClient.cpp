@@ -8,6 +8,7 @@ ThClient::ThClient(std::string num_to_guess, Socket &s) :
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
     this->intentos = 0;
+    this->is_running = true;
 }
 
 ThClient::~ThClient(){}
@@ -81,4 +82,20 @@ std::string ThClient::process_command(){
     std::string rta = set_answer(recv_command, numero);
     numero = INVALID;
     return rta;
+}
+
+void ThClient::run(){
+    bool keep_reading = true;
+    while (keep_reading){
+        std::string answer = process_command();
+        send_answer(answer);
+        if ((answer.compare("Ganaste") == 0) || (answer.compare("Perdiste") == 0)){
+            keep_reading = false;
+            is_running = false;
+        }
+    }
+}
+
+bool ThClient::is_dead(){
+    return is_running;
 }
