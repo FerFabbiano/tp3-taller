@@ -17,7 +17,7 @@ Client::~Client(){}
 
 std::string Client::read_stdin(){
     std::string command;
-    std::getline(std::cin, command);
+    getline(std::cin, command);
     return command;
 }
 
