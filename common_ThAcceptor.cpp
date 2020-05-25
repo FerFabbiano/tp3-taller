@@ -4,6 +4,7 @@
 #include <algorithm>  
 #include <string>
 #include "common_OSError.h"
+#include <vector>
 
 ThAcceptor::ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
     LoosersCounter &loosers) : s(s), file(file), winners(winners),
