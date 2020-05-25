@@ -7,8 +7,8 @@ void LoosersCounter::inc() {
     counter ++;
 }
 
-void LoosersCounter::print_loosers() const{
-    std::cout << "      Perdedores: " << counter << '\n';
+int LoosersCounter::get_loosers() const{
+    return counter;
 }
 
 LoosersCounter::~LoosersCounter(){}

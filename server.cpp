@@ -9,6 +9,7 @@
 #include "common_ThAcceptor.h"
 #include "common_winnersCounter.h"
 #include "common_loosersCounter.h"
+#include "common_impresor.h"
 
 #define ERROR 1
 #define SUCCESS 0
@@ -51,9 +52,9 @@ int main(int argc, char const *argv[]){
         }
     }
     acceptor.join();
-    std::cout << "Estadísticas:\n";
-    winners.print_winners();
-    loosers.print_loosers();
+    
+    Impresor impresor;
+    impresor(winners.get_winners(), loosers.get_loosers());
 
     return SUCCESS;
 }

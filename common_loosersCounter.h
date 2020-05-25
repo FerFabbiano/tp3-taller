@@ -16,7 +16,7 @@ public:
     /* Incremento el valor del atributo resultado */
     void inc();
     /* Imprimo el valor del atributo resultado por pantalla */
-    void print_loosers() const;
+    int get_loosers() const;
     /* Destructor */
     ~LoosersCounter();
 };
