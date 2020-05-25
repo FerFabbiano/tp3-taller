@@ -55,7 +55,11 @@ void Client::send_command(std::string command){
 std::string Client::rcv_answer(){
     char string_length[4];
     s.receive(string_length, sizeof(string_length));
-    unsigned const int length = *(unsigned int*) string_length;
+    int length = 0;
+    char *buff = (char*) &length;
+    for (int i = 0; i < 4; i++){
+        buff[i] = string_length[i];
+    }
     std::vector <char> answer(length+1, 0);
     char *buf = answer.data();
     s.receive(buf, length);
