@@ -9,30 +9,36 @@
 #include "common_winnersCounter.h"
 #include "common_loosersCounter.h"
 
+#define ERROR 1
+#define SUCCESS 0
+
 int main(int argc, char const *argv[]){
     try{
         if (argc != 3)
             throw OSError("Error: argumentos invalidos.");
     }catch(OSError &e){
         std::cerr << e.what() << std::endl;
-        return 1;
+        return ERROR;
     }
-
     FileManager file(argv[2]);
     try{
         file.valid_file();
     }catch(OSError &e){
         std::cerr << e.what() << std::endl;
-        return 1;
+        return ERROR;
     }
+
     WinnersCounter winners;
     LoosersCounter loosers;
     std::string quit;
     bool wait = true;
-
     Socket s;
-    s.bind_and_listen(argv[1]);
-
+    try{
+        s.bind_and_listen(argv[1]);
+    }catch(std::exception &e){
+        std::cerr << e.what() << std::endl;
+        return ERROR;
+    }
     ThAcceptor acceptor(s, file, winners, loosers);
     acceptor.start();
     while(wait){
@@ -44,10 +50,9 @@ int main(int argc, char const *argv[]){
         }
     }
     acceptor.join();
-
     std::cout << "Estadísticas:\n";
     winners.print_winners();
     loosers.print_loosers();
 
-    return 0;
+    return SUCCESS;
 }

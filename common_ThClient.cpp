@@ -11,6 +11,7 @@ ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter &winn
     this->perdiste = "Perdiste";
     this->intentos = 0;
     this->is_running = true;
+    this->keep_reading = true;
 }
 
 ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)), 
@@ -21,13 +22,14 @@ ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)),
     this->intentos = 0;
     this->is_running = true;
     this->num_to_guess = other.num_to_guess;
+    this->keep_reading = true;
 }
 
 
 ThClient::~ThClient(){}
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
-    std::string comando = command;
+    std::string comando(command);
     if (comando.compare("s") == 0){
         loosers.inc();
         return perdiste;
@@ -101,7 +103,6 @@ std::string ThClient::process_command(){
 }
 
 void ThClient::run(){
-    bool keep_reading = true;
     while (keep_reading){
         std::string answer = process_command();
         send_answer(answer);
@@ -113,7 +114,7 @@ void ThClient::run(){
     }
 }
 
-bool ThClient::is_dead(){
+bool ThClient::is_dead() const{
     if (is_running){
         return false;
     }

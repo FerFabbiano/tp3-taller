@@ -20,8 +20,8 @@ Socket::Socket(int fd) : fd(fd) {}
 
 Socket Socket::accept(){
     int fd = ::accept(this->fd, nullptr, nullptr);
-    if (fd == -1)
-      throw SocketError("Error en la función accept de Socket.");
+    //if (fd == -1)
+      //throw SocketError("Error en la función accept de Socket.");
     return std::move(Socket(fd)); // devuelvo socket por movimiento
 }
 
@@ -105,11 +105,5 @@ int Socket::receive(char *buffer, size_t buf_length) const{
 }
 
 void Socket::close(){
-    /* Si es válido, lo cierro. */
-    if (this->fd != -1){
-      ::close(this->fd);
-      ::shutdown(this->fd, SHUT_RDWR);
-    }
-    /* Dejo el file descriptor en un estado inválido. */
-    this->fd = -1;
+    ::shutdown(this->fd, SHUT_RDWR);
 }

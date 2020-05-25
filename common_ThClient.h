@@ -34,8 +34,7 @@ public:
     la respuesta que debo enviarle al cliente. */
     std::string process_command();
     void run();
-    bool is_dead();
-
+    bool is_dead() const;
     ThClient(ThClient &&other) noexcept;
     ThClient& operator=(ThClient &&other);
 
@@ -47,6 +46,7 @@ private:
     std::string num_to_guess;
     Socket s;
     std::atomic<bool> is_running;
+    std::atomic<bool> keep_reading;
     WinnersCounter &winners;
     LoosersCounter &loosers;
 };
