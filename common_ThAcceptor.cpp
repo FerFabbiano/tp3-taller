@@ -34,6 +34,8 @@ void ThAcceptor::run(){
                 }
             }
         }
+        if(!push)
+            delete client;
     }
     for (int i = 0; i < (int)threads.size(); i++){
         threads[i]->join();    
