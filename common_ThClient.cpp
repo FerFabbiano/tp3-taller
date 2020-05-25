@@ -123,8 +123,5 @@ void ThClient::run(){
 }
 
 bool ThClient::is_dead() const{
-    if (is_running){
-        return false;
-    }
-    return true;
+    return !is_running;
 }

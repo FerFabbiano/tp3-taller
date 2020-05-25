@@ -24,17 +24,18 @@ void ThAcceptor::run(){
             threads.push_back(client);      
             threads[j]->start();   
             j++;
+            /*
             for (int i = 0; i < (int)threads.size(); i++){
                 if (threads[i]->is_dead()){
                     threads[i]->join();
-                    delete threads[i];   
                     threads.erase(std::remove_if(threads.begin(), threads.end(),
                     [](const ThClient* client) {return client->is_dead(); })
                     , threads.end());
+                    delete threads[i];   
                     j--;
                 }
+            */
             }
-        }
         if (!push)
             delete client;
     }
