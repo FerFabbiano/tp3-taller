@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "common_socket.h"
 #include "common_ThClient.h"
@@ -41,7 +42,7 @@ int main(int argc, char const *argv[]){
     }
     ThAcceptor acceptor(s, file, winners, loosers);
     acceptor.start();
-    while(wait){
+    while (wait){
         std::getline(std::cin, quit);
         if (quit.compare("q") == 0){
             wait = false;

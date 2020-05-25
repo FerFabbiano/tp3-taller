@@ -6,7 +6,8 @@
 #include <vector>
 
 Client::Client(Socket &s) : s(s){
-    this->invalid_command = "Error: comando inválido. Escriba AYUDA para obtener ayuda";
+    this->invalid_command = "Error: comando inválido."
+    "Escriba AYUDA para obtener ayuda";
     this->help = "AYUDA";
     this->surrender = "RENDIRSE";
     this->number_send = 0;

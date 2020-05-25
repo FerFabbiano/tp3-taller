@@ -18,8 +18,9 @@ void ThAcceptor::run(){
     int j = 0;
     while (keep_accepting){
         std::string num_to_guess = file.get_number();
-        ThClient *client = new ThClient(accept_client(num_to_guess, winners, loosers));
-        if(push){
+        ThClient *client = new ThClient(accept_client(num_to_guess, 
+        winners, loosers));
+        if (push){
             threads.push_back(client);      
             threads[j]->start();   
             j++;
@@ -34,7 +35,7 @@ void ThAcceptor::run(){
                 }
             }
         }
-        if(!push)
+        if (!push)
             delete client;
     }
     for (int i = 0; i < (int)threads.size(); i++){
@@ -43,8 +44,8 @@ void ThAcceptor::run(){
     }
 }
 
-ThClient ThAcceptor::accept_client(std::string num_to_guess, WinnersCounter &winners, 
-    LoosersCounter &loosers){
+ThClient ThAcceptor::accept_client(std::string num_to_guess,
+    WinnersCounter &winners, LoosersCounter &loosers){
     Socket socket_accepted = s.accept();
     ThClient client(num_to_guess, std::move(socket_accepted), winners, loosers);
     return std::move(client);

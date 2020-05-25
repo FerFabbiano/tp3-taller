@@ -37,7 +37,7 @@ void FileManager::valid_number(std::string number){
 void FileManager::valid_file(){
     std::string number;
     getline(fs, number);
-    while(!fs.eof()){
+    while (!fs.eof()){
         valid_number(number);
         getline(fs, number);
     }
