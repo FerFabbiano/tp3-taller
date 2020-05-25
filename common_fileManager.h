@@ -15,6 +15,9 @@ public:
     en el juego. Caso negativo, lanzo una excepción que deberá terminar
     el juego, y devolver 1. */
     void valid_number(std::string number);
+    /* Válido los números que contiene el archivo. Si alguno de ellos no es 
+    considerado válido, lanzo una excepción y finalizo el programa
+    con códifo de retorno 1 */
     void valid_file();
 private:
     std::string filename;

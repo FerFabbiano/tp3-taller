@@ -12,13 +12,20 @@
 
 class ThAcceptor : public Thread{
 public:
+    /* Constructor */
     ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
         LoosersCounter &loosers);
+    /* Destructor */
     ~ThAcceptor();
     void run();  
+    /* Acepto un nuevo cliente, y devuelvo un ThClient por movimiento */
     ThClient accept_client(std::string num_to_guess, WinnersCounter &winners, 
         LoosersCounter &loosers);
+    /* Seteo keep_accepting y push en falso, para que el hilo sepa que no
+    debe aceptar nuevos clientes. */
     void stop_accepting();
+    /* Borro los clientes que ya finalizaron de la lista de clientes. 
+    Evito leaks, hago de garbagge collector. */
     void delete_finish_clients(std::vector<ThClient*> &threads);
 
 private:

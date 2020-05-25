@@ -31,6 +31,9 @@ public:
     /* Recibo la respuesta proveniente del servidor en base al comando y/o número
     enviado. */
     std::string rcv_answer();
+    /* Recibo por parámetro un string. Devuelvo verdadero si no coincide con
+    "ganaste" o "perdiste". Falso caso contrario. */
     bool check_answer(std::string answer);
+    /* Destructor */
     ~Client();
 };

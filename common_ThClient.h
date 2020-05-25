@@ -34,6 +34,8 @@ public:
     la respuesta que debo enviarle al cliente. */
     std::string process_command();
     void run();
+    /* Devuelvo falso si is_running es verdadero.
+    Devuelvo verdadero caso contrario. */
     bool is_dead() const;
     ThClient(ThClient &&other) noexcept;
     ThClient& operator=(ThClient &&other);

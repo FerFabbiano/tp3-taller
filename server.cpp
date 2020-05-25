@@ -29,7 +29,6 @@ int main(int argc, char const *argv[]){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
-
     WinnersCounter winners;
     LoosersCounter loosers;
     std::string quit;

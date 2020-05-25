@@ -13,9 +13,10 @@ private:
 public:
     /* Constructor */
     LoosersCounter();
-    /* Incremento el valor del atributo resultado */
+    /* Incremento el valor del atributo counter */
     void inc();
-    /* Imprimo el valor del atributo resultado por pantalla */
+    /* Obtengo la cantidad de perdedores para que el impresor pueda 
+    imprimilo por pantalla. */
     int get_loosers() const;
     /* Destructor */
     ~LoosersCounter();
