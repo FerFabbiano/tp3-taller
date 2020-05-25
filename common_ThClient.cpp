@@ -35,11 +35,10 @@ ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)),
 ThClient::~ThClient(){}
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
-    std::string comando(command);
-    if (comando.compare("s") == 0){
+    if (strncmp(command, "s", 1) == 0){
         loosers.inc();
         return perdiste;
-    }else if (comando.compare("h") == 0) {
+    }else if (strncmp(command, "h", 1) == 0) {
         return help;
     }
     intentos += 1;
