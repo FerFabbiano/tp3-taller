@@ -19,7 +19,7 @@ public:
     ThClient accept_client(std::string num_to_guess, WinnersCounter &winners, 
         LoosersCounter &loosers);
     void stop_accepting();
-    void delete_finish_clients(std::vector<ThClient*> &threads, int &j);
+    void delete_finish_clients(std::vector<ThClient*> &threads);
 
 private:
     std::vector<ThClient*> threads;
