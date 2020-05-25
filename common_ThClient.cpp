@@ -117,9 +117,9 @@ void ThClient::run(){
         if ((answer.compare("Ganaste") == 0) || 
         (answer.compare("Perdiste") == 0)){
             keep_reading = false;
-            is_running = false;
         }
     }
+    is_running = false;
 }
 
 bool ThClient::is_dead() const{

@@ -45,7 +45,7 @@ private:
     std::string ganaste;
     std::string num_to_guess;
     Socket s;
-    bool is_running;
+    std::atomic<bool> is_running;
     bool keep_reading;
     WinnersCounter &winners;
     LoosersCounter &loosers;
