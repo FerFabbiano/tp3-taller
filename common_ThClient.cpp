@@ -6,10 +6,9 @@
 ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter
     &winners, LoosersCounter &loosers) : num_to_guess(num_to_guess), 
     s(std::move(socket)), winners(winners), loosers(loosers){
-    this->help = "Comandos válidos:​ \n\t​AYUDA: despliega la lista de "
-    "comandos válidos​ \n\t​RENDIRSE: pierde el juego automáticamente​ \n\t​"
-    "XXX: Número de 3 cifras a ser enviado al servidor para adivinar el"
-    " número secreto";
+    this->help = "Comandos válidos:\n\tAYUDA: despliega la lista de comandos"
+    " válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número "
+    "de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
     this->intentos = 0;
@@ -19,10 +18,9 @@ ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter
 
 ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)), 
     winners(other.winners), loosers(other.loosers){
-    this->help = "Comandos válidos:​ \n\t​AYUDA: despliega la lista de "
-    "comandos válidos​ \n\t​RENDIRSE: pierde el juego automáticamente​ \n\t​"
-    "XXX: Número de 3 cifras a ser enviado al servidor para adivinar el"
-    " número secreto";
+    this->help = "Comandos válidos:\n\tAYUDA: despliega la lista de comandos"
+    " válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número "
+    "de 3 cifras a ser enviado al servidor para adivinar el número secreto";
     this->ganaste = "Ganaste";
     this->perdiste = "Perdiste";
     this->intentos = 0;
