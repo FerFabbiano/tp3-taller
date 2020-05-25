@@ -100,7 +100,10 @@ std::string ThClient::process_command(){
     s.receive(recv_command, 1);
         if (*recv_command == 'n'){
             s.receive(recv_num, 2);
-            numero = *(uint16_t*) recv_num;
+            char *buff = (char*) &numero;
+            for (int i = 0; i < 2; i++){
+                buff[i] = recv_num[i];
+            }
         }
     std::string rta = set_answer(recv_command, numero);
     numero = INVALID;
