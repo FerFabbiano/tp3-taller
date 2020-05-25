@@ -43,7 +43,7 @@ int main(int argc, char const *argv[]){
     ThAcceptor acceptor(s, file, winners, loosers);
     acceptor.start();
     while (wait){
-        getline(std::cin, quit);
+        std::cin >> quit;
         if (quit.compare("q") == 0){
             wait = false;
             s.close(); 
