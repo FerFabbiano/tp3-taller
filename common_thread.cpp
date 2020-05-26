@@ -3,11 +3,7 @@
 
 Thread::Thread() {}
 
-Thread::~Thread() {
-    if (thread.joinable()){
-        thread.join();
-    }
-}
+Thread::~Thread() {}
 
 void Thread::start(){
     thread = std::thread(&Thread::run, this); // this->run(this)
