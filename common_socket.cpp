@@ -20,8 +20,6 @@ Socket::Socket(int fd) : fd(fd) {}
 
 Socket Socket::accept(){
     int fd = ::accept(this->fd, nullptr, nullptr);
-    //if (fd == -1)
-      //throw SocketError("Error en la función accept de Socket.");
     return std::move(Socket(fd)); // devuelvo socket por movimiento
 }
 
