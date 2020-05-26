@@ -20,13 +20,13 @@ void ThAcceptor::run(){
         std::string num_to_guess = file.get_number();
         ThClient *client = new ThClient(accept_client(num_to_guess, 
         winners, loosers));
-        //if (push){    
+        if (push){    
             threads.push_back(client);  
             threads.back()->start();   
             delete_finish_clients(threads);
-        //}
-        //if (!push)
-            //delete(client);
+        }
+        if (!push)
+            delete(client);
     }
     for (int i = 0; i < (int)threads.size(); i++){
         threads.at(i)->join();    
