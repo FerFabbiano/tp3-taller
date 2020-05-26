@@ -6,7 +6,7 @@ FileManager::FileManager(const char* filename) : filename(filename){
     fs.open(this->filename);
     if (!fs.is_open())
         throw OSError("Error al abrir el archivo.");
-    counter = 0;
+    this->counter = 0;
 }
 
 FileManager::~FileManager(){
