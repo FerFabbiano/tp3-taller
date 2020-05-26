@@ -1,6 +1,7 @@
 #include "common_socket.h"
 #include <cerrno>
-#include <iostream>
+
+#define SERVEROUT 22
 
 Socket::Socket() : fd(-1) {}
 
@@ -25,7 +26,7 @@ Socket Socket::accept(){
     if (fd == -1){
     /* 22 es el errno correspondiente a cuando cierro el socket porque una "q"
     fue ingresa en el servidor. */
-        if (errno != 22) 
+        if (errno != SERVEROUT) 
             throw SocketError("Error en la función accept de Socket.");
     }
     return std::move(Socket(fd)); // devuelvo socket por movimiento
