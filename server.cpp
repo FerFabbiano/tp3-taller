@@ -23,7 +23,6 @@ int main(int argc, char const *argv[]){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
-    //std::vector<std::string> numbers;
     FileManager file(argv[2]);
     try{
         file.valid_file();
