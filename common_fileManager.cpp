@@ -23,14 +23,6 @@ std::string FileManager::get_number(){
     number = numbers.at(counter);
     counter++;
     return number;
-
-    /*getline(fs, number);
-    if (fs.eof()){
-        fs.clear();
-        fs.seekg(0, fs.beg);
-        getline(fs, number);
-    }
-    */
 }
 
 void FileManager::valid_number(std::string number){
@@ -44,14 +36,10 @@ void FileManager::valid_number(std::string number){
 
 void FileManager::valid_file(){
     std::string number;
-    //getline(fs, number);
     while (!fs.eof()){
         getline(fs, number);
         numbers.push_back(number);
-        std::cout << numbers.at(counter) << std::endl;
         counter ++;
         valid_number(number);
     }
-    //fs.clear();
-    //fs.seekg(0, fs.beg);
 }
