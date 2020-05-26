@@ -6,6 +6,7 @@ FileManager::FileManager(const char* filename) : filename(filename){
     fs.open(this->filename);
     if (!fs.is_open())
         throw OSError("Error al abrir el archivo.");
+    counter = 0;
 }
 
 FileManager::~FileManager(){
@@ -16,13 +17,20 @@ FileManager::~FileManager(){
 
 std::string FileManager::get_number(){
     std::string number;
-    getline(fs, number);
+    if (counter == (unsigned int) numbers.size()){
+        counter = 0;
+    }
+    number = numbers.at(counter);
+    counter++;
+    return number;
+
+    /*getline(fs, number);
     if (fs.eof()){
         fs.clear();
         fs.seekg(0, fs.beg);
         getline(fs, number);
     }
-    return number;
+    */
 }
 
 void FileManager::valid_number(std::string number){
@@ -36,11 +44,14 @@ void FileManager::valid_number(std::string number){
 
 void FileManager::valid_file(){
     std::string number;
-    getline(fs, number);
+    //getline(fs, number);
     while (!fs.eof()){
-        valid_number(number);
         getline(fs, number);
+        numbers.push_back(number);
+        std::cout << numbers.at(counter) << std::endl;
+        counter ++;
+        valid_number(number);
     }
-    fs.clear();
-    fs.seekg(0, fs.beg);
+    //fs.clear();
+    //fs.seekg(0, fs.beg);
 }

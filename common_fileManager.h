@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 class FileManager{
 public:
@@ -22,6 +23,8 @@ public:
 private:
     std::string filename;
     std::ifstream fs;
+    std::vector<std::string> numbers;
+    unsigned int counter;
 };
 
 #endif

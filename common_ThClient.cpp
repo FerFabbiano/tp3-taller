@@ -103,6 +103,7 @@ std::string ThClient::process_command(){
                 buff[i] = recv_num[i];
             }
         }
+    ntohs(numero);
     std::string rta = set_answer(recv_command, numero);
     numero = INVALID;
     return rta;

@@ -34,7 +34,7 @@ Socket Socket::accept(){
 
 void Socket::bind_and_listen(const char *service){
     int status = 0, val = 1;
-    addrinfo hints, *results, *aux;
+    struct addrinfo hints, *results, *aux;
     set_hints(&hints, SERVER);
     status = getaddrinfo(nullptr, service, &hints, &results);
     if (status != 0)
@@ -64,15 +64,12 @@ void Socket::set_hints(addrinfo *hints, int tipo){
     hints->ai_family = AF_INET;    
     hints->ai_socktype = SOCK_STREAM; 
     hints->ai_protocol = 0;
-    switch (tipo){
-        case 0: hints->ai_flags = 0;
-        case 1: hints->ai_flags = AI_PASSIVE;
-    }
+    hints->ai_flags = AI_PASSIVE;
 }
 
 void Socket::connect(const char *host_name, const char *service){
     int status = 0;
-    addrinfo hints, *results, *aux;
+    struct addrinfo hints, *results, *aux;
     set_hints(&hints, CLIENT);
     status = getaddrinfo(host_name, service, &hints, &results);
     if (status != 0)
@@ -113,4 +110,5 @@ int Socket::receive(char *buffer, size_t buf_length) const{
 
 void Socket::close(){
     ::shutdown(this->fd, SHUT_RDWR);
+    ::close(this->fd);
 }

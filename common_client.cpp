@@ -45,6 +45,7 @@ void Client::encode_command(std::string command){
 void Client::send_command(std::string command){
     encode_command(command);
     s.send(&command_send, 1);
+    htons(number_send);
     if (command_send == 'n'){
         s.send((char*) &number_send, 2);
     }
