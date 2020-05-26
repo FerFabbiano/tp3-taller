@@ -2,8 +2,7 @@
 #include "common_OSError.h"
 #include <string>
 
-FileManager::FileManager(const char* filename)
-    : filename(filename){
+FileManager::FileManager(const char* filename) : filename(filename){
     fs.open(this->filename);
     if (!fs.is_open())
         throw OSError("Error al abrir el archivo.");
@@ -41,4 +40,5 @@ void FileManager::valid_file(){
         numbers.push_back(number);
         valid_number(number);
     }
+    fs.close();
 }
