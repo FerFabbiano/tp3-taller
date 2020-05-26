@@ -10,6 +10,7 @@
 #include "common_winnersCounter.h"
 #include "common_loosersCounter.h"
 #include "common_impresor.h"
+#include <vector>
 
 #define ERROR 1
 #define SUCCESS 0
@@ -22,6 +23,7 @@ int main(int argc, char const *argv[]){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
+    //std::vector<std::string> numbers;
     FileManager file(argv[2]);
     try{
         file.valid_file();

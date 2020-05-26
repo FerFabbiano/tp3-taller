@@ -2,7 +2,8 @@
 #include "common_OSError.h"
 #include <string>
 
-FileManager::FileManager(const char* filename) : filename(filename){
+FileManager::FileManager(const char* filename)
+    : filename(filename){
     fs.open(this->filename);
     if (!fs.is_open())
         throw OSError("Error al abrir el archivo.");
@@ -36,10 +37,8 @@ void FileManager::valid_number(std::string number){
 
 void FileManager::valid_file(){
     std::string number;
-    while (!fs.eof()){
-        getline(fs, number);
+    while ((std::getline(fs, number))){
         numbers.push_back(number);
-        counter ++;
         valid_number(number);
     }
 }
