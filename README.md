@@ -17,6 +17,6 @@
 	Es importante, al iniciar el trabajo, poder identificar cuáles son los recursos que van a ser accedidos por mas de un hilo, para evitar tener race conditions. Primero, tenemos los contadores de ganadores y perdedores. Cuando un jugador termina su partido, ThClient accede a alguno de estos dos objetos, y lo incrementa. Puede suceder que dos jugadores hayan terminado casi al mismo tiempo, y que el resultado de sus partidas sea el mismo, y por ende intenten incrementar la variable al mismo tiempo, generandose una race condition que pueda traernos problemas a la hora de saber el resultado final. Luego, tenemos las variables booleandas de ThAcceptor, keep_accepting y push. Ambas son accedidas tanto por el mismo hilo que las declara, como por el hilo main a través de una función. Cuando el servidor desea dejar de prestar servicios, estos dos booleanos son seteados en falso, para permitir que el hilo Aceptador liberé sus recursos de una forma correcta y ordenada. Para solucionar las posibles race conditions en este caso, use objetos atómicos de la librería estándar de c++, que aseguran un acceso seguro en estos casos. 
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/38590805/82852257-d876a480-9ed8-11ea-8fa2-c2c6e334af61.png" 			width=900 height=300>
+<img src="https://user-images.githubusercontent.com/38590805/82852257-d876a480-9ed8-11ea-8fa2-c2c6e334af61.png" 			width=700 height=400>
 
 	
