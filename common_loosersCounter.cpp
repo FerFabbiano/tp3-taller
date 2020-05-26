@@ -1,6 +1,6 @@
 #include "common_loosersCounter.h"
 
-LoosersCounter::LoosersCounter() : counter(0) {}
+LoosersCounter::LoosersCounter() : counter(-1) {}
     
 void LoosersCounter::inc() {
     Lock l(m);
