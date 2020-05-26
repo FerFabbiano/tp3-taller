@@ -95,7 +95,7 @@ void ThClient::send_answer(std::string answer){
 }
 
 std::string ThClient::process_command(){
-    char recv_num[2], recv_command[2];
+    char recv_num[2], recv_command[2] = "";
     uint16_t numero = INVALID;
     s.receive(recv_command, 1);
         if (*recv_command == 'n'){
