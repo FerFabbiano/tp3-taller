@@ -31,7 +31,9 @@ ThClient::ThClient(ThClient &&other) noexcept : s(std::move(other.s)),
 }
 
 
-ThClient::~ThClient(){}
+ThClient::~ThClient(){
+    this->join();
+}
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
     if (strncmp(command, "s", 1) == 0){

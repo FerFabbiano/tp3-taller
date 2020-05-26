@@ -10,7 +10,9 @@ void Thread::start(){
 }
 
 void Thread::join(){
-    thread.join();
+    if (thread.joinable()){
+        thread.join();
+    }
 }
 
 Thread::Thread(Thread&& other){
