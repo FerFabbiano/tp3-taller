@@ -24,11 +24,11 @@ ThClient::~ThClient(){
 }
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
-    std::string command_recv(command);
-    if (command_recv.compare("s") == 0){
+    //std::string command_recv(command);
+    if (strncmp(command, "s", 1) == 0){
         loosers.inc();
         return perdiste;
-    }else if (command_recv.compare("h") == 0) {
+    }else if (strncmp(command, "h", 1) == 0) {
         return help;
     }
     intentos += 1;
@@ -86,7 +86,7 @@ void ThClient::send_answer(std::string answer){
 }
 
 std::string ThClient::process_command(){
-    char recv_num[2], recv_command;
+    char recv_num[2], recv_command = ' ';
     uint16_t numero = INVALID;
     s.receive(&recv_command, 1);
         if (recv_command == 'n'){
@@ -106,8 +106,8 @@ void ThClient::run(){
     while (keep_reading){
         std::string answer = process_command();
         send_answer(answer);
-        if ((answer.compare("Ganaste") == 0) || 
-        (answer.compare("Perdiste") == 0)){
+        if ((answer == ("Ganaste")) || 
+        (answer == ("Perdiste"))){
             keep_reading = false;
         }
     }
