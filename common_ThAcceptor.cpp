@@ -31,7 +31,7 @@ void ThAcceptor::run(){
             }
         }
     }
-    for (int i = 0; i < (int)threads.size(); i++){
+    for (size_t i = 0; i < threads.size(); i++){
         threads.at(i)->join();    
         delete(threads.at(i));
     }
