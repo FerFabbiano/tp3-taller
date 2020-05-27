@@ -23,10 +23,11 @@ ThClient::~ThClient(){
 }
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
-    if (strncmp(command, "s", 1) == 0){
+    std::string command_recv(command);
+    if (command_recv.compare("s") == 0){
         loosers.inc();
         return perdiste;
-    }else if (strncmp(command, "h", 1) == 0) {
+    }else if (command_recv.compare("h") == 0) {
         return help;
     }
     intentos += 1;
