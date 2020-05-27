@@ -25,10 +25,7 @@ Socket::Socket(int fd) : fd(fd) {}
 Socket Socket::accept(){
     int fd = ::accept(this->fd, nullptr, nullptr);
     if (fd == -1){
-    /* 22 es el errno correspondiente a cuando cierro el socket porque una "q"
-    fue ingresa en el servidor. */
-        if (errno != SERVEROUT) 
-            throw SocketError("Error en la función accept de Socket.");
+        throw SocketError("Error en la función accept de Socket.");
     }
     return std::move(Socket(fd)); // devuelvo socket por movimiento
 }

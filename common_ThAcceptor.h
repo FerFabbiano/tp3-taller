@@ -35,7 +35,6 @@ private:
     WinnersCounter &winners;
     LoosersCounter &loosers;
     std::atomic<bool> keep_accepting;
-    std::atomic<bool> push;
 };
 
 #endif
