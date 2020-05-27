@@ -6,6 +6,7 @@
 #define HELP "Comandos válidos:\n\tAYUDA: despliega la lista de comandos válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto"
 #define GANASTE "Ganaste"
 #define PERDISTE "Perdiste"
+#define SIZE_OF_INT 4
 
 ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter
     &winners, LoosersCounter &loosers) : num_to_guess(num_to_guess), 
@@ -77,10 +78,10 @@ std::string ThClient::compare_number(uint16_t number){
 }
 
 void ThClient::send_answer(std::string answer){
-    unsigned int size_mssg_send = 0;
+    uint32_t size_mssg_send = 0;
     size_mssg_send = (answer.size());
-    htons(size_mssg_send);
-    s.send((char*) &size_mssg_send, sizeof(int));
+    //htons(size_mssg_send);
+    s.send((char*) &size_mssg_send, SIZE_OF_INT);
     s.send(answer.data(), size_mssg_send);
 }
 
