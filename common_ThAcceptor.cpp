@@ -9,9 +9,7 @@
 
 ThAcceptor::ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
     LoosersCounter &loosers) : s(s), file(file), winners(winners),
-    loosers(loosers){
-        this->keep_accepting = true;
-    }
+    loosers(loosers), keep_accepting(true){}
 
 ThAcceptor::~ThAcceptor(){}
 
