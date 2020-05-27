@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-Client::Client(Socket &s) : s(s){
+Client::Client(){
     this->invalid_command = "Error: comando inválido."
     "Escriba AYUDA para obtener ayuda";
     this->help = "AYUDA";
@@ -14,6 +14,26 @@ Client::Client(Socket &s) : s(s){
 }
 
 Client::~Client(){}
+
+void Client::init(){
+    bool keep_reading = true;
+    while (keep_reading){
+        std::string command = read_stdin();
+        std::string answer;
+        try{
+            send_command(command);
+            answer = rcv_answer();
+        }
+        catch(std::exception &e){
+            std::cout << e.what() << '\n';
+        }
+        keep_reading = check_answer(answer);
+    }
+}
+
+void Client::connect(const char *host_name, const char *service){
+    s.connect(host_name, service);
+}
 
 std::string Client::read_stdin(){
     std::string command;

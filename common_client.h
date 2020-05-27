@@ -6,7 +6,7 @@
 
 class Client{
 private: 
-    Socket &s;
+    Socket s;
     char command_send;
     uint16_t number_send;
     bool continue_playing;    
@@ -16,7 +16,8 @@ private:
 
 public: 
     /* Constructor */
-    explicit Client(Socket &s);
+    explicit Client();
+    void init();
     /* Leo el comando ingresado por el cliente el la entrada estándar. 
     Devuelvo el comando en un string. */
     std::string read_stdin();
@@ -35,5 +36,6 @@ public:
     "ganaste" o "perdiste". Falso caso contrario. */
     bool check_answer(std::string answer);
     /* Destructor */
+    void connect(const char *host_name, const char *service);
     ~Client();
 };
