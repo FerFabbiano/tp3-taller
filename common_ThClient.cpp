@@ -32,47 +32,13 @@ std::string ThClient::set_answer(const char* command, uint16_t number){
         return help;
     }
     intentos += 1;
-    std::string answer = compare_number(number); 
-    if ((intentos >= 10) && (answer.compare("Ganaste") != 0)){
-        loosers.inc();
-        return perdiste;
-    }
-    return answer;
-}
-
-
-std::string ThClient::compare_number(uint16_t number){
-    std::string answer, num = std::to_string(number);
-    int bien = 0, regular = 0;
-    if (((number < 100) ||  (number > 999)) && (number != INVALID)){
-        answer = "Número inválido. Debe ser de 3 cifras no repetidas";
-        return answer;
-    }
-    if ((num[0] == num [1]) || (num[0] == num[2]) || (num[1] == num[2])){
-        answer = "Número inválido. Debe ser de 3 cifras no repetidas";
-        return answer;          
-    }
-    if (num.compare(num_to_guess) == 0){
+    std::string answer = game.compare_number(number, num_to_guess); 
+    if (answer == GANASTE){
         winners.inc();
-        return ganaste;
     }
-    for (int i = 0; i < 3; i++){
-        if (num[i] == num_to_guess[i])
-            bien ++;
-        for (int j = 0; j < 3; j ++){
-            if ((num[i] == num_to_guess[j]) && (i != j))
-                regular ++;
-        }
-    }
-    if ((bien == 0) && (regular == 0))
-        answer = "3 mal";
-    if ((bien != 0) && (regular == 0))
-        answer = std::to_string(bien) + " bien";
-    if (bien == 0 && regular != 0)
-        answer = std::to_string(regular) + " regular";
-    if ((bien != 0) && (regular != 0)){
-        answer = std::to_string(bien) + " bien, " + std::to_string(regular) 
-            + " regular";
+    if ((intentos >= 10) && (answer != GANASTE)){
+        loosers.inc();
+        return PERDISTE;
     }
     return answer;
 }

@@ -21,10 +21,6 @@ public:
     de 2 bytes. Este entero será cero en caso de que el comando enviado
     no sea un número. Devuelvo la respuesta que debo enviar al cliente. */
     std::string set_answer(const char* command, uint16_t number);
-    /* Comparo el número que ingreso el cliente, con el extraído del archivo
-    de número a adivinar. En base a esa comparación, devuelvo una respuesta
-    con lo que se le debe enviar al cliente. */
-    std::string compare_number(uint16_t number);
     /* Recibe por parámetro un string que contiene la respuesta que se le 
     debe enviar al cliente en base al comando recibido. Envío respuesta
     a través del socket. */
