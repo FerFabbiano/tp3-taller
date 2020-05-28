@@ -5,12 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#define INVALID_COMMAND "Error: comando inválido.Escriba AYUDA para obtener ayuda"
-#define HELP "AYUDA"
-#define SURRENDER "RENDIRSE"
-
-Client::Client() : invalid_command(INVALID_COMMAND), help(HELP), 
-    surrender(SURRENDER), number_send(0){}
+Client::Client() : number_send(0){}
 
 Client::~Client(){}
 
@@ -40,29 +35,10 @@ std::string Client::read_stdin(){
     return command;
 }
 
-void Client::encode_command(std::string command){
-    int number = 0;
-    if (command == help){
-        this->command_send = 'h';
-    }else if (command == surrender){
-        this->command_send = 's';
-    }else {
-        try {
-            number = std::stoi(command, 0, 10);
-        }catch(std::exception &e){
-            throw OSError(invalid_command);
-        }
-        if (number > NUM_MAX){
-            throw OSError(invalid_command);
-        }else{
-            this->command_send = 'n';
-            this->number_send = number;
-        }
-    }
-}
-
 void Client::send_command(std::string command){
-    encode_command(command);
+    char command_send;
+    uint16_t number_send;
+    protocol.initialize(command, command_send, number_send);
     s.send(&command_send, 1);
     htons(number_send);
     if (command_send == 'n'){

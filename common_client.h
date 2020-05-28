@@ -1,19 +1,15 @@
 #include <iostream>
 #include <string>
 #include "common_socket.h"
-
-#define NUM_MAX 65536
+#include "common_protocol.h"
 
 class Client{
 private: 
     Socket s;
     char command_send;
     bool continue_playing;    
-    std::string invalid_command;
-    std::string help;
-    std::string surrender;
     uint16_t number_send;
-
+    Protocol protocol;
 public: 
     /* Constructor */
     explicit Client();
@@ -21,10 +17,6 @@ public:
     /* Leo el comando ingresado por el cliente el la entrada estándar. 
     Devuelvo el comando en un string. */
     std::string read_stdin();
-    /* Seteo, en base al comando que ingreso el cliente, el mensaje para
-    enviarle al servidor (seteo con los valores correspondientes los atributos
-    command_send y number_send) */
-    void encode_command(std::string command);
     /* Envío el comando ingresado por el cliente, formateado, a través del 
     socket. En caso de haber ingresado un número, envío el comando y 
     luego envío dicho número. */
