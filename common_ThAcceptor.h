@@ -12,7 +12,7 @@
 class ThAcceptor : public Thread{
 public:
     /* Constructor */
-    ThAcceptor(Socket &s, FileManager &file, PlayersCounter &winners, 
+    ThAcceptor(FileManager &file, PlayersCounter &winners, 
         PlayersCounter &loosers);
     /* Destructor */
     ~ThAcceptor();
@@ -26,10 +26,11 @@ public:
     /* Borro los clientes que ya finalizaron de la lista de clientes. 
     Evito leaks, hago de garbagge collector. */
     void delete_finish_clients(std::vector<ThClient*> &threads);
+    void init(const char *service);
 
 private:
     std::vector<ThClient*> threads;
-    Socket &s;
+    Socket s;
     FileManager &file;
     PlayersCounter &winners;
     PlayersCounter &loosers;

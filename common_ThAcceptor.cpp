@@ -7,11 +7,15 @@
 #include <vector>
 #include <cerrno>
 
-ThAcceptor::ThAcceptor(Socket &s, FileManager &file, PlayersCounter &winners, 
-    PlayersCounter &loosers) : s(s), file(file), winners(winners),
+ThAcceptor::ThAcceptor(FileManager &file, PlayersCounter &winners, 
+    PlayersCounter &loosers) : file(file), winners(winners),
     loosers(loosers), keep_accepting(true){}
 
 ThAcceptor::~ThAcceptor(){}
+
+void ThAcceptor::init(const char *service){
+    s.bind_and_listen(service);
+}
 
 void ThAcceptor::run(){
     while (keep_accepting){
@@ -37,6 +41,7 @@ void ThAcceptor::run(){
 
 void ThAcceptor::stop_accepting(){
     this->keep_accepting = false;
+    s.close();
 }
 
 void ThAcceptor::delete_finish_clients(std::vector<ThClient*> &threads){

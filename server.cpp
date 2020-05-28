@@ -34,20 +34,13 @@ int main(int argc, char const *argv[]){
     PlayersCounter loosers;
     std::string quit;
     bool wait = true;
-    Socket s;
-    try{
-        s.bind_and_listen(argv[1]);
-    }catch(std::exception &e){
-        std::cerr << e.what() << std::endl;
-        return ERROR;
-    }
-    ThAcceptor acceptor(s, file, winners, loosers);
+    ThAcceptor acceptor(file, winners, loosers);
+    acceptor.init(argv[1]);
     acceptor.start();
     while (wait){
         std::cin >> quit;
         if (quit.compare("q") == 0){
             wait = false;
-            s.close(); 
             acceptor.stop_accepting();
         }
     }
