@@ -7,20 +7,19 @@
 #include "common_fileManager.h"
 #include <string>
 #include "common_ThClient.h"
-#include "common_loosersCounter.h"
-#include "common_winnersCounter.h"
+#include "common_playersCounter.h"
 
 class ThAcceptor : public Thread{
 public:
     /* Constructor */
-    ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
-        LoosersCounter &loosers);
+    ThAcceptor(Socket &s, FileManager &file, PlayersCounter &winners, 
+        PlayersCounter &loosers);
     /* Destructor */
     ~ThAcceptor();
     void run();  
     /* Acepto un nuevo cliente, y devuelvo un ThClient por movimiento */
-    ThClient accept_client(std::string num_to_guess, WinnersCounter &winners, 
-        LoosersCounter &loosers);
+    ThClient accept_client(std::string num_to_guess, PlayersCounter &winners, 
+        PlayersCounter &loosers);
     /* Seteo keep_accepting y push en falso, para que el hilo sepa que no
     debe aceptar nuevos clientes. */
     void stop_accepting();
@@ -32,8 +31,8 @@ private:
     std::vector<ThClient*> threads;
     Socket &s;
     FileManager &file;
-    WinnersCounter &winners;
-    LoosersCounter &loosers;
+    PlayersCounter &winners;
+    PlayersCounter &loosers;
     std::atomic<bool> keep_accepting;
 };
 

@@ -8,8 +8,8 @@
 #define PERDISTE "Perdiste"
 #define SIZE_OF_INT 4
 
-ThClient::ThClient(std::string num_to_guess, Socket socket, WinnersCounter
-    &winners, LoosersCounter &loosers) : num_to_guess(num_to_guess), 
+ThClient::ThClient(std::string num_to_guess, Socket socket, PlayersCounter
+    &winners, PlayersCounter &loosers) : num_to_guess(num_to_guess), 
     s(std::move(socket)), intentos(0), help(HELP), perdiste(PERDISTE), 
     ganaste(GANASTE), is_running(true), keep_reading(true), winners(winners), 
     loosers(loosers){}

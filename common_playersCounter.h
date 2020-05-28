@@ -5,19 +5,19 @@
 #include <thread>
 #include <mutex>
 
-class WinnersCounter {
+class PlayersCounter {
 private:
     std::mutex m;        
     unsigned int counter; 
 public:
     /* Constructor */
-    WinnersCounter();
+    PlayersCounter();
     /* Incremento el valor del atributo resultado */
     void inc();
     /* Imprimo el valor del atributo resultado por pantalla */
-    int get_winners() const;
+    int get_counter() const;
     /* Destructor */
-    ~WinnersCounter();
+    ~PlayersCounter();
 };
 
 #endif

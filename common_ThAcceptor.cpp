@@ -7,8 +7,8 @@
 #include <vector>
 #include <cerrno>
 
-ThAcceptor::ThAcceptor(Socket &s, FileManager &file, WinnersCounter &winners, 
-    LoosersCounter &loosers) : s(s), file(file), winners(winners),
+ThAcceptor::ThAcceptor(Socket &s, FileManager &file, PlayersCounter &winners, 
+    PlayersCounter &loosers) : s(s), file(file), winners(winners),
     loosers(loosers), keep_accepting(true){}
 
 ThAcceptor::~ThAcceptor(){}

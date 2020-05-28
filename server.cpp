@@ -7,7 +7,7 @@
 #include "common_fileManager.h"
 #include "common_OSError.h"
 #include "common_ThAcceptor.h"
-#include "common_winnersCounter.h"
+#include "common_playersCounter.h"
 #include "common_loosersCounter.h"
 #include "common_impresor.h"
 #include <vector>
@@ -30,8 +30,8 @@ int main(int argc, char const *argv[]){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
-    WinnersCounter winners;
-    LoosersCounter loosers;
+    PlayersCounter winners;
+    PlayersCounter loosers;
     std::string quit;
     bool wait = true;
     Socket s;
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]){
     acceptor.join();
     
     Impresor impresor;
-    impresor(winners.get_winners(), loosers.get_loosers());
+    impresor(winners.get_counter(), loosers.get_counter());
 
     return SUCCESS;
 }
