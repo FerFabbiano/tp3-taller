@@ -43,9 +43,9 @@ std::string Client::read_stdin(){
 
 void Client::encode_command(std::string command){
     int number = 0;
-    if (command.compare(help) == 0){
+    if (command == help){
         this->command_send = 'h';
-    }else if (command.compare(surrender) == 0){
+    }else if (command == surrender){
         this->command_send = 's';
     }else {
         try {
