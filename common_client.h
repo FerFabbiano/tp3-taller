@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include "common_socket.h"
 #include "common_protocol.h"
