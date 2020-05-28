@@ -12,9 +12,9 @@ int Stats::get_counter() const{
     return counter;
 }
 
-void Stats::operator()(int winners, int loosers){
+void Stats::operator()(int winners, int losers){
     std::cout << "Estadísticas:\n\tGanadores:  " << winners << '\n'
-    << "\tPerdedores: " << loosers << '\n';
+    << "\tPerdedores: " << losers << '\n';
 }
 
 Stats::~Stats(){}

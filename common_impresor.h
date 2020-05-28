@@ -7,7 +7,7 @@ class Impresor {
 public: 
     /* El operador llamada a función me permite tratar a la clase como 
     si fuera una función. */
-    void operator()(int winners, int loosers);
+    void operator()(int winners, int losers);
 };
 
 #endif

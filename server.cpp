@@ -21,10 +21,10 @@ int main(int argc, char const *argv[]){
         FileManager file(argv[2]);
         file.valid_file();
         Stats winners;
-        Stats loosers;
+        Stats losers;
         std::string stop;
         bool should_wait = true;
-        ThAcceptor acceptor(file, winners, loosers);
+        ThAcceptor acceptor(file, winners, losers);
         acceptor.init(argv[1]);
         acceptor.start();
         while (should_wait){
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[]){
             }
         }
         acceptor.join();
-        winners(winners.get_counter(), loosers.get_counter());
+        winners(winners.get_counter(), losers.get_counter());
     }catch(const std::exception &e){
         std::cerr << e.what() << std::endl;
         return ERROR;

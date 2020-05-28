@@ -12,13 +12,13 @@
 class ThAcceptor : public Thread{
 public:
     /* Constructor */
-    ThAcceptor(FileManager &file, Stats &winners, Stats &loosers);
+    ThAcceptor(FileManager &file, Stats &winners, Stats &losers);
     /* Destructor */
     ~ThAcceptor();
     void run();  
     /* Acepto un nuevo cliente, y devuelvo un ThClient por movimiento */
     ThClient accept_client(std::string num_to_guess, Stats &winners, 
-        Stats &loosers);
+        Stats &losers);
     /* Seteo keep_accepting y push en falso, para que el hilo sepa que no
     debe aceptar nuevos clientes. */
     void stop_accepting();
@@ -32,7 +32,7 @@ private:
     Socket s;
     FileManager &file;
     Stats &winners;
-    Stats &loosers;
+    Stats &losers;
     std::atomic<bool> keep_accepting;
 };
 

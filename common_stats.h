@@ -16,7 +16,7 @@ public:
     void inc();
     /* Imprimo el valor del atributo resultado por pantalla */
     int get_counter() const;
-    void operator()(int winners, int loosers);
+    void operator()(int winners, int losers);
     /* Destructor */
     ~Stats();
 };

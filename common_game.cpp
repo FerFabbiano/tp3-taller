@@ -9,7 +9,7 @@ Game::Game() : intentos(0){}
 
 bool Game::check_if_loser(std::string answer){
     intentos ++;
-    return ((intentos >= 10) && (answer.compare("Ganaste") != 0));
+    return ((intentos >= 10) && (answer != GANASTE));
 }
 
 std::string Game::compare_number(uint16_t number, std::string num_to_guess){

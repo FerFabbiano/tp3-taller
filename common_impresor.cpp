@@ -1,6 +1,6 @@
 #include "common_impresor.h"
 
-void Impresor::operator()(int winners, int loosers){
+void Impresor::operator()(int winners, int losers){
     std::cout << "Estadísticas:\n\tGanadores:  " << winners << '\n'
-    << "\tPerdedores: " << loosers << '\n';
+    << "\tPerdedores: " << losers << '\n';
 }

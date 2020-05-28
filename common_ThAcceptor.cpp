@@ -8,8 +8,8 @@
 #include <cerrno>
 
 ThAcceptor::ThAcceptor(FileManager &file, Stats &winners, 
-    Stats &loosers) : file(file), winners(winners),
-    loosers(loosers), keep_accepting(true){}
+    Stats &losers) : file(file), winners(winners),
+    losers(losers), keep_accepting(true){}
 
 ThAcceptor::~ThAcceptor(){}
 
@@ -23,7 +23,7 @@ void ThAcceptor::run(){
         try{
             Socket socket_accepted = s.accept();
             ThClient *client = new ThClient(num_to_guess, 
-            std::move(socket_accepted), winners, loosers);
+            std::move(socket_accepted), winners, losers);
             threads.push_back(client);  
             threads.back()->start();   
             delete_finish_clients(threads);

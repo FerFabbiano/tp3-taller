@@ -10,15 +10,15 @@
 #define SIZE_OF_INT 4
 
 ThClient::ThClient(std::string num_to_guess, Socket socket, Stats
-    &winners, Stats &loosers) : num_to_guess(num_to_guess), 
-    s(std::move(socket)), intentos(0), help(HELP), perdiste(PERDISTE), 
+    &winners, Stats &losers) : num_to_guess(num_to_guess), 
+    s(std::move(socket)), help(HELP), perdiste(PERDISTE), 
     ganaste(GANASTE), is_running(true), keep_reading(true), winners(winners), 
-    loosers(loosers){}
+    losers(losers){}
 
 ThClient::ThClient(ThClient &&other) noexcept : num_to_guess(other.num_to_guess),
-    s(std::move(other.s)), intentos(0), help(HELP), perdiste(PERDISTE), 
+    s(std::move(other.s)), help(HELP), perdiste(PERDISTE), 
     ganaste(GANASTE), is_running(true), keep_reading(true), winners(other.winners), 
-    loosers(other.loosers){}
+    losers(other.losers){}
 
 ThClient::~ThClient(){
     this->join();
@@ -26,18 +26,18 @@ ThClient::~ThClient(){
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
     if (strncmp(command, "s", 1) == 0){
-        loosers.inc();
+        losers.inc();
         return perdiste;
     }else if (strncmp(command, "h", 1) == 0) {
         return help;
     }
-    intentos += 1;
     std::string answer = game.compare_number(number, num_to_guess); 
     if (answer == GANASTE){
         winners.inc();
     }
-    if ((intentos >= 10) && (answer != GANASTE)){
-        loosers.inc();
+    bool loser = game.check_if_loser(answer); 
+    if (loser){
+        losers.inc();
         return PERDISTE;
     }
     return answer;

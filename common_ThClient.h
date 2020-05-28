@@ -14,7 +14,7 @@ class ThClient : public Thread{
 public: 
     /* Constructor */
     ThClient(std::string num_to_guess, Socket socket, Stats &winners, 
-        Stats &loosers);
+        Stats &losers);
     /* Destructor */
     ~ThClient();
     /* Recibe el comando enviado a través del socket y un entero sin signo 
@@ -39,14 +39,13 @@ public:
 private:
     std::string num_to_guess;
     Socket s;
-    unsigned int intentos;
     std::string help;
     std::string perdiste;
     std::string ganaste;
     std::atomic<bool> is_running;
     bool keep_reading;
     Stats &winners;
-    Stats &loosers;
+    Stats &losers;
     Game game;
 };
 
