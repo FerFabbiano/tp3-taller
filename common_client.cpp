@@ -88,8 +88,5 @@ std::string Client::rcv_answer(){
 }
 
 bool Client::check_answer(std::string answer){
-    if ((answer.compare("Ganaste") == 0) || (answer.compare("Perdiste") == 0))
-        return false;
-    return true;
+    return !((answer == "Ganaste") || (answer == "Perdiste" ));
 }
-
