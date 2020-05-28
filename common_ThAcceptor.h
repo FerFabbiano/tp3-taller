@@ -8,6 +8,7 @@
 #include <string>
 #include "common_ThClient.h"
 #include "common_stats.h"
+#include "common_game.h"
 
 class ThAcceptor : public Thread{
 public:

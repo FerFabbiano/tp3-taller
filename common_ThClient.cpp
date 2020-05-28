@@ -9,16 +9,13 @@
 #define PERDISTE "Perdiste"
 #define SIZE_OF_INT 4
 
-ThClient::ThClient(std::string num_to_guess, Socket socket, Stats
-    &winners, Stats &losers) : num_to_guess(num_to_guess), 
-    s(std::move(socket)), help(HELP), perdiste(PERDISTE), 
-    ganaste(GANASTE), is_running(true), keep_reading(true), winners(winners), 
-    losers(losers){}
+ThClient::ThClient(std::string num_to_guess, Socket socket, Game &game)
+    : num_to_guess(num_to_guess), s(std::move(socket)), help(HELP), perdiste(PERDISTE), 
+    ganaste(GANASTE), is_running(true), keep_reading(true), game(game){}
 
 ThClient::ThClient(ThClient &&other) noexcept : num_to_guess(other.num_to_guess),
     s(std::move(other.s)), help(HELP), perdiste(PERDISTE), 
-    ganaste(GANASTE), is_running(true), keep_reading(true), winners(other.winners), 
-    losers(other.losers){}
+    ganaste(GANASTE), is_running(true), keep_reading(true), game(other.game){}
 
 ThClient::~ThClient(){
     this->join();
@@ -26,18 +23,14 @@ ThClient::~ThClient(){
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
     if (strncmp(command, "s", 1) == 0){
-        losers.inc();
+        game.surrender();
         return perdiste;
     }else if (strncmp(command, "h", 1) == 0) {
         return help;
     }
     std::string answer = game.compare_number(number, num_to_guess); 
-    if (answer == GANASTE){
-        winners.inc();
-    }
     bool loser = game.check_if_loser(answer); 
     if (loser){
-        losers.inc();
         return PERDISTE;
     }
     return answer;

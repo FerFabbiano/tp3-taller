@@ -22,8 +22,9 @@ void ThAcceptor::run(){
         std::string num_to_guess = file.get_number();
         try{
             Socket socket_accepted = s.accept();
+            Game game(winners, losers);
             ThClient *client = new ThClient(num_to_guess, 
-            std::move(socket_accepted), winners, losers);
+            std::move(socket_accepted), game);
             threads.push_back(client);  
             threads.back()->start();   
             delete_finish_clients(threads);

@@ -5,11 +5,20 @@
 #define GANASTE "Ganaste"
 #define PERDISTE "Perdiste"
 
-Game::Game() : intentos(0){}
+Game::Game(Stats &winners, Stats &losers) : intentos(0), winners(winners),
+    losers(losers){}
 
 bool Game::check_if_loser(std::string answer){
     intentos ++;
-    return ((intentos >= 10) && (answer != GANASTE));
+    if ((intentos >= 10) && (answer != GANASTE)){
+        losers.inc();
+        return true;
+    }
+    return false;
+}
+
+void Game::surrender(){
+    losers.inc();
 }
 
 std::string Game::compare_number(uint16_t number, std::string num_to_guess){
@@ -24,6 +33,7 @@ std::string Game::compare_number(uint16_t number, std::string num_to_guess){
         return answer;          
     }
     if (num.compare(num_to_guess) == 0){
+        winners.inc();
         return GANASTE;
     }
     for (int i = 0; i < 3; i++){
