@@ -97,7 +97,7 @@ int Socket::send(const char *buffer, size_t buf_length) const{
     size_t size_send = 0, aux;
     while (size_send < buf_length){
         aux = ::send(this->fd, &buffer[size_send], buf_length - size_send, 0);
-        if (aux <= 0)
+        if (aux < 0)
             throw SocketError("Error al enviar mensaje por el socket.");
         size_send += aux;
     }
@@ -108,7 +108,7 @@ int Socket::receive(char *buffer, size_t buf_length) const{
     size_t size_recv = 0, aux = 0;
     while (size_recv < buf_length){
         aux = ::recv(this->fd, &buffer[size_recv], buf_length - size_recv, 0);
-        if (aux <= 0)
+        if (aux < 0)
             throw SocketError("Error al recibir mensaje por el socket.");
         size_recv += aux;
     }
