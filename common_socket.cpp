@@ -83,6 +83,8 @@ void Socket::connect(const char *host_name, const char *service){
         ::close(this->fd);
         this->fd = -1;
     }
+    if (this->fd == -1)
+        throw SocketError("Error al intentar conectar el socket.");
     freeaddrinfo(results); /* libero lista de direcciones. */
 }
 
