@@ -16,7 +16,7 @@ void Client::init(){
         std::string answer;
         try{
             send_command(command);
-            answer = rcv_answer();
+            answer = receive();
         }
         catch(std::exception &e){
             std::cout << e.what() << '\n';
@@ -48,7 +48,7 @@ void Client::send_command(std::string command){
     number_send = 0;
 }
 
-std::string Client::rcv_answer(){
+std::string Client::receive(){
     char string_length[4];
     s.receive(string_length, sizeof(string_length));
     int length = 0;
