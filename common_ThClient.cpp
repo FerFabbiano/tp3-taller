@@ -80,8 +80,8 @@ std::string ThClient::compare_number(uint16_t number){
 void ThClient::send_answer(std::string answer){
     uint32_t size_mssg_send = htonl(answer.size());
     s.send((char*) &size_mssg_send, SIZE_OF_INT);
-    size_mssg_send = ntohl(size_mssg_send);
-    s.send(answer.data(), size_mssg_send);
+    //size_mssg_send = ntohl(size_mssg_send);
+    s.send(answer.data(), answer.size());
 }
 
 std::string ThClient::process_command(){
