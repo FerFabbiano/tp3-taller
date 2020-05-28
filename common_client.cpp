@@ -5,13 +5,12 @@
 #include <iostream>
 #include <vector>
 
-Client::Client(){
-    this->invalid_command = "Error: comando inválido."
-    "Escriba AYUDA para obtener ayuda";
-    this->help = "AYUDA";
-    this->surrender = "RENDIRSE";
-    this->number_send = 0;
-}
+#define INVALID_COMMAND "Error: comando inválido.Escriba AYUDA para obtener ayuda"
+#define HELP "AYUDA"
+#define SURRENDER "RENDIRSE"
+
+Client::Client() : invalid_command(INVALID_COMMAND), help(HELP), 
+    surrender(SURRENDER), number_send(0){}
 
 Client::~Client(){}
 
