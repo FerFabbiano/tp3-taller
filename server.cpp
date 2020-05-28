@@ -24,14 +24,14 @@ int main(int argc, char const *argv[]){
         PlayersCounter winners;
         PlayersCounter loosers;
         std::string quit;
-        bool wait = true;
+        bool should_wait = true;
         ThAcceptor acceptor(file, winners, loosers);
         acceptor.init(argv[1]);
         acceptor.start();
-        while (wait){
+        while (should_wait){
             std::cin >> quit;
             if (quit.compare("q") == 0){
-                wait = false;
+                should_wait = false;
                 acceptor.stop_accepting();
             }
         }
