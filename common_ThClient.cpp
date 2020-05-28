@@ -1,6 +1,7 @@
 #include "common_ThClient.h"
 #include <string>
 #include <utility>
+#include <netinet/in.h>
 
 #define INVALID -1
 #define HELP "Comandos válidos:\n\tAYUDA: despliega la lista de comandos válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto"
@@ -86,17 +87,13 @@ void ThClient::send_answer(std::string answer){
 }
 
 std::string ThClient::process_command(){
-    char recv_num[2], recv_command = ' ';
+    char recv_command = ' ';
     uint16_t numero = INVALID;
     s.receive(&recv_command, 1);
         if (recv_command == 'n'){
-            s.receive(recv_num, 2);
-            char *buff = (char*) &numero;
-            for (int i = 0; i < 2; i++){
-                buff[i] = recv_num[i];
-            }
+            s.receive((char*) &numero, 2);
+            numero = ntohs(numero);
         }
-    ntohs(numero);
     std::string rta = set_answer(&recv_command, numero);
     numero = INVALID;
     return rta;

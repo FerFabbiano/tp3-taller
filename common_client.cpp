@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <netinet/in.h>
 
 Client::Client() : number_send(0){}
 
@@ -40,7 +41,7 @@ void Client::send_command(std::string command){
     uint16_t number_send;
     protocol.initialize(command, command_send, number_send);
     s.send(&command_send, 1);
-    htons(number_send);
+    number_send = htons(number_send);
     if (command_send == 'n'){
         s.send((char*) &number_send, 2);
     }
