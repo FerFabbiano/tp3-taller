@@ -96,7 +96,8 @@ void Socket::connect(const char *host_name, const char *service){
 int Socket::send(const char *buffer, size_t buf_length) const{
     size_t size_send = 0, aux;
     while (size_send < buf_length){
-        aux = ::send(this->fd, &buffer[size_send], buf_length - size_send, 0);
+        aux = ::send(this->fd, &buffer[size_send], buf_length - size_send, 
+        MSG_NOSIGNAL);
         if (aux < 0)
             throw SocketError("Error al enviar mensaje por el socket.");
         size_send += aux;
