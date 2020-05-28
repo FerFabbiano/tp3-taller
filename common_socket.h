@@ -34,6 +34,7 @@ public:
     void set_hints(addrinfo *hints, int tipo);
     /* Shutdown de los canales tanto de escritura como de lectura del socket */
     void close();
+    void shutdown();
     Socket(const Socket& copy) = delete;
     Socket& operator=(const Socket &copy) = delete;
     Socket(Socket &&other) noexcept;

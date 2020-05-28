@@ -41,6 +41,7 @@ void ThAcceptor::run(){
 
 void ThAcceptor::stop_accepting(){
     this->keep_accepting = false;
+    s.shutdown();
     s.close();
 }
 

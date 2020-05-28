@@ -116,6 +116,9 @@ int Socket::receive(char *buffer, size_t buf_length) const{
 }
 
 void Socket::close(){
-    ::shutdown(this->fd, SHUT_RDWR);
     ::close(this->fd);
+}
+
+void Socket::shutdown(){
+    ::shutdown(this->fd, SHUT_RDWR);
 }
