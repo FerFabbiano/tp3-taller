@@ -19,35 +19,28 @@ int main(int argc, char const *argv[]){
     try{
         if (argc != 3)
             throw OSError("Error: argumentos invalidos.");
-    }catch(OSError &e){
-        std::cerr << e.what() << std::endl;
-        return ERROR;
-    }
-    FileManager file(argv[2]);
-    try{
+        FileManager file(argv[2]);
         file.valid_file();
-    }catch(OSError &e){
+        PlayersCounter winners;
+        PlayersCounter loosers;
+        std::string quit;
+        bool wait = true;
+        ThAcceptor acceptor(file, winners, loosers);
+        acceptor.init(argv[1]);
+        acceptor.start();
+        while (wait){
+            std::cin >> quit;
+            if (quit.compare("q") == 0){
+                wait = false;
+                acceptor.stop_accepting();
+            }
+        }
+        acceptor.join();
+        Impresor impresor;
+        impresor(winners.get_counter(), loosers.get_counter());
+    }catch(std::exception &e){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
-    PlayersCounter winners;
-    PlayersCounter loosers;
-    std::string quit;
-    bool wait = true;
-    ThAcceptor acceptor(file, winners, loosers);
-    acceptor.init(argv[1]);
-    acceptor.start();
-    while (wait){
-        std::cin >> quit;
-        if (quit.compare("q") == 0){
-            wait = false;
-            acceptor.stop_accepting();
-        }
-    }
-    acceptor.join();
-    
-    Impresor impresor;
-    impresor(winners.get_counter(), loosers.get_counter());
-
     return SUCCESS;
 }
