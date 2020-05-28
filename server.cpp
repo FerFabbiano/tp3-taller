@@ -7,8 +7,7 @@
 #include "common_fileManager.h"
 #include "common_OSError.h"
 #include "common_ThAcceptor.h"
-#include "common_playersCounter.h"
-#include "common_loosersCounter.h"
+#include "common_stats.h"
 #include "common_impresor.h"
 #include <vector>
 
@@ -21,8 +20,8 @@ int main(int argc, char const *argv[]){
             throw OSError("Error: argumentos invalidos.");
         FileManager file(argv[2]);
         file.valid_file();
-        PlayersCounter winners;
-        PlayersCounter loosers;
+        Stats winners;
+        Stats loosers;
         std::string stop;
         bool should_wait = true;
         ThAcceptor acceptor(file, winners, loosers);
@@ -36,8 +35,7 @@ int main(int argc, char const *argv[]){
             }
         }
         acceptor.join();
-        Impresor impresor;
-        impresor(winners.get_counter(), loosers.get_counter());
+        winners(winners.get_counter(), loosers.get_counter());
     }catch(const std::exception &e){
         std::cerr << e.what() << std::endl;
         return ERROR;
