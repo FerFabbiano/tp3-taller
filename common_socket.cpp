@@ -36,7 +36,7 @@ void Socket::bind_and_listen(const char *service){
     set_hints(&hints, SERVER);
     status = getaddrinfo(nullptr, service, &hints, &results);
     if (status != 0)
-      throw std::exception();
+      throw SocketError("Error al intentar obtener lista de direcciones.");
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
         if (this->fd == -1)

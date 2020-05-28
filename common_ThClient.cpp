@@ -79,9 +79,9 @@ std::string ThClient::compare_number(uint16_t number){
 }
 
 void ThClient::send_answer(std::string answer){
-    uint32_t size_mssg_send = 0;
-    size_mssg_send = (answer.size());
-    //htons(size_mssg_send);
+    uint32_t size_mssg_send = answer.size();
+    //size_mssg_send = (answer.size());
+    //size_mssg_send = htonl(size_mssg_send);
     s.send((char*) &size_mssg_send, SIZE_OF_INT);
     s.send(answer.data(), size_mssg_send);
 }
