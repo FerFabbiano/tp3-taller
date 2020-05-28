@@ -40,7 +40,7 @@ void Socket::bind_and_listen(const char *service){
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
         if (this->fd == -1)
-            throw SocketError("Error al crear socket en el bind and listen.");
+            continue;
         status = setsockopt(this->fd,SOL_SOCKET,SO_REUSEADDR,&val,sizeof(val));
         if (status == -1){
             ::close(this->fd);
@@ -82,7 +82,7 @@ void Socket::connect(const char *host_name, const char *service){
     for (aux = results; aux != nullptr; aux = aux->ai_next) {
         this->fd = ::socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
         if (this->fd == -1)
-            throw std::exception();
+            continue;
         if (::connect(this->fd, aux->ai_addr, aux->ai_addrlen) == 0)
             break;               
         ::close(this->fd);
