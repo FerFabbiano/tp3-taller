@@ -8,6 +8,7 @@
 #include "common_thread.h"
 #include <atomic>
 #include "common_stats.h"
+#include "common_game.h"
 
 class ThClient : public Thread{
 public: 
@@ -50,6 +51,7 @@ private:
     bool keep_reading;
     Stats &winners;
     Stats &loosers;
+    Game game;
 };
 
 

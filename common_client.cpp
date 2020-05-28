@@ -52,7 +52,7 @@ void Client::send_command(std::string command){
 std::string Client::receive(){
     uint32_t length = 0;
     s.receive((char*) &length, 4);
-    //length = ntohl(length);
+    length = ntohl(length);
     std::vector <char> answer(length+1, 0);
     char *buf = answer.data();
     s.receive(buf, length);

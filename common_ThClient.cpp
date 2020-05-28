@@ -25,7 +25,6 @@ ThClient::~ThClient(){
 }
 
 std::string ThClient::set_answer(const char* command, uint16_t number){
-    //std::string command_recv(command);
     if (strncmp(command, "s", 1) == 0){
         loosers.inc();
         return perdiste;
@@ -34,7 +33,7 @@ std::string ThClient::set_answer(const char* command, uint16_t number){
     }
     intentos += 1;
     std::string answer = compare_number(number); 
-    if ((intentos >= 10) && (answer.compare(ganaste) != 0)){
+    if ((intentos >= 10) && (answer.compare("Ganaste") != 0)){
         loosers.inc();
         return perdiste;
     }
@@ -79,10 +78,9 @@ std::string ThClient::compare_number(uint16_t number){
 }
 
 void ThClient::send_answer(std::string answer){
-    uint32_t size_mssg_send = answer.size();
-    //size_mssg_send = (answer.size());
-    //size_mssg_send = htonl(size_mssg_send);
+    uint32_t size_mssg_send = htonl(answer.size());
     s.send((char*) &size_mssg_send, SIZE_OF_INT);
+    size_mssg_send = ntohl(size_mssg_send);
     s.send(answer.data(), size_mssg_send);
 }
 
