@@ -52,6 +52,8 @@ void Socket::bind_and_listen(const char *service){
         ::close(this->fd);
         this->fd = -1;
     }
+    if (this->fd == -1)
+        throw SocketError("Error al intentar bindear el socket.");
     freeaddrinfo(results); /* libero lista de direcciones. */
     status = listen(this->fd, 10);
     if (status == -1)
