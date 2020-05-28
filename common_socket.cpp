@@ -64,7 +64,12 @@ void Socket::set_hints(addrinfo *hints, int tipo){
     hints->ai_family = AF_INET;    
     hints->ai_socktype = SOCK_STREAM; 
     hints->ai_protocol = 0;
-    hints->ai_flags = AI_PASSIVE;
+    if (tipo == SERVER){
+        hints->ai_flags = AI_PASSIVE;
+    }else{
+        hints->ai_flags = 0;
+    }
+    
 }
 
 void Socket::connect(const char *host_name, const char *service){
