@@ -4,7 +4,6 @@
 #include <vector>
 #include <thread>
 #include <mutex>
-#include "common_lock.h"
 
 class WinnersCounter {
 private:

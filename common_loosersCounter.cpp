@@ -3,7 +3,7 @@
 LoosersCounter::LoosersCounter() : counter(0) {}
     
 void LoosersCounter::inc() {
-    Lock l(m);
+    std::unique_lock<std::mutex> lk(this->m);
     counter ++;
 }
 

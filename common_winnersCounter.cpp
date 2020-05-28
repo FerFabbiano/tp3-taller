@@ -3,7 +3,7 @@
 WinnersCounter::WinnersCounter() : counter(0) {}
     
 void WinnersCounter::inc() {
-    Lock l(m);
+    std::unique_lock<std::mutex> lk(this->m);
     counter ++;
 }
 
