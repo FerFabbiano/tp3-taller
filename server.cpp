@@ -38,7 +38,7 @@ int main(int argc, char const *argv[]){
         acceptor.join();
         Impresor impresor;
         impresor(winners.get_counter(), loosers.get_counter());
-    }catch(std::exception &e){
+    }catch(const std::exception &e){
         std::cerr << e.what() << std::endl;
         return ERROR;
     }
