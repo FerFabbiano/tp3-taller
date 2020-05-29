@@ -21,11 +21,13 @@ ThClient::~ThClient(){
     this->join();
 }
 
-std::string ThClient::set_answer(const char* command, uint16_t number){
-    if (strncmp(command, "s", 1) == 0){
+std::string ThClient::set_answer(const char command, uint16_t number){
+    std::string command_string = " ";
+    command_string = command;
+    if (command_string == "s"){
         game.surrender();
         return perdiste;
-    }else if (strncmp(command, "h", 1) == 0) {
+    }else if (command_string == "h") {
         return help;
     }
     std::string answer = game.compare_number(number, num_to_guess); 
@@ -50,7 +52,7 @@ std::string ThClient::process_command(){
             s.receive((char*) &numero, 2);
             numero = ntohs(numero);
         }
-    std::string rta = set_answer(&recv_command, numero);
+    std::string rta = set_answer(recv_command, numero);
     numero = INVALID;
     return rta;
 }
