@@ -22,14 +22,14 @@ int main(int argc, char const *argv[]){
         file.valid_file();
         Stats winners;
         Stats losers;
-        std::string stop;
+        std::string stop_accepting;
         bool should_wait = true;
         ThAcceptor acceptor(file, winners, losers);
         acceptor.init(argv[1]);
         acceptor.start();
         while (should_wait){
-            std::cin >> stop;
-            if (stop.compare("q") == 0){
+            std::cin >> stop_accepting;
+            if (stop_accepting.compare("q") == 0){
                 should_wait = false;
                 acceptor.stop_accepting();
             }
