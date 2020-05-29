@@ -3,7 +3,6 @@
 #include <utility>
 #include <algorithm>  
 #include <string>
-#include "common_OSError.h"
 #include <vector>
 #include <cerrno>
 
@@ -20,19 +19,13 @@ void ThAcceptor::init(const char *service){
 void ThAcceptor::run(){
     while (keep_accepting){
         std::string num_to_guess = file.get_number();
-        try{
-            Socket socket_accepted = s.accept();
-            Game game(winners, losers);
-            ThClient *client = new ThClient(num_to_guess, 
-            std::move(socket_accepted), game);
-            threads.push_back(client);  
-            threads.back()->start();   
-            delete_finish_clients(threads);
-        }catch(std::exception &e){
-            if (errno != 22){
-                throw;
-            }
-        }
+        Socket socket_accepted = s.accept();
+        Game game(winners, losers);
+        ThClient *client = new ThClient(num_to_guess, 
+        std::move(socket_accepted), game);
+        threads.push_back(client);  
+        threads.back()->start();   
+        delete_finish_clients(threads);
     }
     for (size_t i = 0; i < threads.size(); i++){
         threads.at(i)->join();    
