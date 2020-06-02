@@ -70,7 +70,6 @@ void Socket::set_hints(addrinfo *hints, int tipo){
     }else{
         hints->ai_flags = 0;
     }
-    
 }
 
 void Socket::connect(const char *host_name, const char *service){

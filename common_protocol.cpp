@@ -1,7 +1,9 @@
 #include "common_protocol.h"
 #include "common_OSError.h"
+#include <string>
 
-#define INVALID_COMMAND "Error: comando inválido.Escriba AYUDA para obtener ayuda"
+#define INVALID_COMMAND "Error: comando inválido.Escriba AYUDA para obtener "\
+"ayuda"
 #define HELP "AYUDA"
 #define SURRENDER "RENDIRSE"
 #define NUM_MAX 65536

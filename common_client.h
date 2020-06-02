@@ -9,6 +9,7 @@ private:
     bool continue_playing;    
     uint16_t number_send;
     Protocol protocol;
+    
 public: 
     /* Constructor */
     explicit Client();

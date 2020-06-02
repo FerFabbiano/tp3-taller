@@ -4,18 +4,22 @@
 #include <netinet/in.h>
 
 #define INVALID -1
-#define HELP "Comandos válidos:\n\tAYUDA: despliega la lista de comandos válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número de 3 cifras a ser enviado al servidor para adivinar el número secreto"
+#define HELP "Comandos válidos:\n\tAYUDA: despliega la lista de comandos "\
+"válidos\n\tRENDIRSE: pierde el juego automáticamente\n\tXXX: Número de 3"\
+" cifras a ser enviado al servidor para adivinar el número secreto"
 #define GANASTE "Ganaste"
 #define PERDISTE "Perdiste"
 #define SIZE_OF_INT 4
 
 ThClient::ThClient(std::string num_to_guess, Socket socket, Game &game)
-    : num_to_guess(num_to_guess), s(std::move(socket)), help(HELP), perdiste(PERDISTE), 
-    ganaste(GANASTE), is_running(true), keep_reading(true), game(game){}
+    : num_to_guess(num_to_guess), s(std::move(socket)), help(HELP), 
+    perdiste(PERDISTE), ganaste(GANASTE), is_running(true), keep_reading(true),
+    game(game){}
 
-ThClient::ThClient(ThClient &&other) noexcept : num_to_guess(other.num_to_guess),
-    s(std::move(other.s)), help(HELP), perdiste(PERDISTE), 
-    ganaste(GANASTE), is_running(true), keep_reading(true), game(other.game){}
+ThClient::ThClient(ThClient &&other) noexcept : num_to_guess
+    (other.num_to_guess), s(std::move(other.s)), help(HELP), 
+    perdiste(PERDISTE), ganaste(GANASTE), is_running(true), keep_reading(true),
+    game(other.game){}
 
 ThClient::~ThClient(){
     this->join();
