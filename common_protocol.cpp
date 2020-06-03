@@ -6,7 +6,7 @@
 "ayuda"
 #define HELP "AYUDA"
 #define SURRENDER "RENDIRSE"
-#define NUM_MAX 65536
+#define NUM_MAX 65536 // 2¹⁶
 
 Protocol::Protocol(){}
 
@@ -25,7 +25,7 @@ uint16_t &number_send){
         }catch(std::exception &e){
             throw OSError(INVALID_COMMAND);
         }
-        if (number > NUM_MAX){
+        if (number > NUM_MAX || number < 0){
             throw OSError(INVALID_COMMAND);
         }else{
             command_send = 'n';
