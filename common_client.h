@@ -12,7 +12,7 @@ private:
     
 public: 
     /* Constructor */
-    explicit Client();
+    Client();
     void init();
     /* Leo el comando ingresado por el cliente el la entrada estándar. 
     Devuelvo el comando en un string. */

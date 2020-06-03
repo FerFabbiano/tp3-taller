@@ -26,7 +26,6 @@ void ThAcceptor::run(){
         std::move(socket_accepted), game);
         threads.push_back(client);  
         threads.back()->start();   
-        std::cout << "sigo" << std::endl;
         delete_finish_clients(threads);
         }catch(SocketError &e){/*ignore*/}
     }
