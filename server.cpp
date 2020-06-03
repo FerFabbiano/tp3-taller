@@ -8,7 +8,6 @@
 #include "common_OSError.h"
 #include "common_ThAcceptor.h"
 #include "common_stats.h"
-#include "common_impresor.h"
 #include <vector>
 
 #define ERROR 1

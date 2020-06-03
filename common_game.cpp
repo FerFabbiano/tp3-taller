@@ -1,5 +1,6 @@
 #include "common_game.h"
 #include <string>
+#include <iostream>
 
 #define INVALID -1
 #define HELP "Comandos válidos:\n\tAYUDA: despliega la lista de comandos "\

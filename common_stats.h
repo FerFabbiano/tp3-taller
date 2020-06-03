@@ -14,8 +14,8 @@ public:
     Stats();
     /* Incremento el valor del atributo resultado */
     void inc();
-    /* Imprimo el valor del atributo resultado por pantalla */
     int get_counter() const;
+    /* Imprimo el valor del atributo resultado por pantalla */
     void operator()(int winners, int losers);
     /* Destructor */
     ~Stats();
