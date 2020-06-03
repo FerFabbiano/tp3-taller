@@ -2,7 +2,7 @@
 #include "common_OSError.h"
 #include <string>
 
-#define INVALID_COMMAND "Error: comando inválido.Escriba AYUDA para obtener "\
+#define INVALID_COMMAND "Error: comando inválido. Escriba AYUDA para obtener "\
 "ayuda"
 #define HELP "AYUDA"
 #define SURRENDER "RENDIRSE"
