@@ -17,12 +17,11 @@ void Client::init(){
         std::string answer;
         try{
             send_command(command);
-            answer = receive();
+            keep_reading = receive();
         }
         catch(std::exception &e){
             std::cout << e.what() << '\n';
         }
-        keep_reading = check_answer(answer);
     }
 }
 
@@ -49,7 +48,7 @@ void Client::send_command(std::string command){
     number_send = 0;
 }
 
-std::string Client::receive(){
+bool Client::receive(){
     uint32_t length = 0;
     s.receive((char*) &length, 4);
     length = ntohl(length);
@@ -57,7 +56,7 @@ std::string Client::receive(){
     char *buf = answer.data();
     s.receive(buf, length);
     std::cout << buf << std::endl;
-    return buf;
+    return check_answer(buf);
 }
 
 bool Client::check_answer(std::string answer){

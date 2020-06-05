@@ -22,12 +22,14 @@ public:
     luego envío dicho número. */
     void send_command(std::string command);
     /* Recibo la respuesta proveniente del servidor en base al comando y/o número
-    enviado. */
-    std::string receive();
+    enviado. Llamo a check_answer pasandole como parámetro la respuesta del
+    servidor, y devuelvo el booleando que devuelva esta función.  */
+    bool receive();
     /* Recibo por parámetro un string. Devuelvo verdadero si no coincide con
     "ganaste" o "perdiste". Falso caso contrario. */
     bool check_answer(std::string answer);
-    /* Destructor */
+    /* Conecto con el servidor. */
     void connect(const char *host_name, const char *service);
+    /* Destructor */
     ~Client();
 };
