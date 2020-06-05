@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <cerrno>
+#include "common_socketErrorIgnore.h"
 
 ThAcceptor::ThAcceptor(FileManager &file, Stats &winners, 
     Stats &losers) : file(file), winners(winners),
@@ -27,7 +28,7 @@ void ThAcceptor::run(){
         threads.push_back(client);  
         threads.back()->start();   
         delete_finish_clients(threads);
-        }catch(SocketError &e){/*ignore*/}
+        }catch(SocketErrorIgnore &e){/* Ignore */}
     }
     for (size_t i = 0; i < threads.size(); i++){
         threads.at(i)->join();    

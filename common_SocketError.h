@@ -1,3 +1,6 @@
+#ifndef SOCKET_ERROR
+#define SOCKET_ERROR
+
 #include <typeinfo>
 #include <string>
 
@@ -9,3 +12,5 @@ public:
     virtual const char *what() const noexcept;
     virtual ~SocketError() noexcept;   
 };
+
+#endif
