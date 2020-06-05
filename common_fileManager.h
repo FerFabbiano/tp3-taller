@@ -8,7 +8,9 @@
 
 class FileManager{
 public:
+    /* Constructor */
     explicit FileManager(const char* filename);
+    /* Destructor */
     ~FileManager();
     /* Obtengo un número del archivo de entrada para utilizarlo en el juego. */
     std::string get_number();

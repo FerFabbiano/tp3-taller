@@ -22,8 +22,7 @@ public:
     luego envío dicho número. */
     void send_command(std::string command);
     /* Recibo la respuesta proveniente del servidor en base al comando y/o número
-    enviado. Llamo a check_answer pasandole como parámetro la respuesta del
-    servidor, y devuelvo el booleando que devuelva esta función.  */
+    enviado. Devuelvo true si sigo jugando, false si gané o perdí.  */
     bool receive();
     /* Recibo por parámetro un string. Devuelvo verdadero si no coincide con
     "ganaste" o "perdiste". Falso caso contrario. */
